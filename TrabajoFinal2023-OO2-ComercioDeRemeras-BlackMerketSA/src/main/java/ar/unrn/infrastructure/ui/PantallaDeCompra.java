@@ -10,11 +10,13 @@ import java.util.HashMap;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+import ar.unrn.domain.portsin.DomainExceptions;
 import ar.unrn.domain.portsin.RegistroDeVentas;
 
 public class PantallaDeCompra extends JFrame {
@@ -111,7 +113,11 @@ public class PantallaDeCompra extends JFrame {
 				datosVenta.put("TipoRemera", tipoRemeraSeleccionada());
 				datosVenta.put("EmailComprador", cajaEmailComprador.getText());
 
-				registroVentas.nuevaVenta(datosVenta);
+				try {
+					registroVentas.nuevaVenta(datosVenta);
+				} catch (DomainExceptions e1) {
+					JOptionPane.showMessageDialog(null, e1.getMessage());
+				}
 			}
 
 			private String tipoRemeraSeleccionada() {
