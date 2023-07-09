@@ -46,7 +46,7 @@ public class PantallaDeCompra extends JFrame {
 		contentPane.add(lblRemeras);
 
 		cajaCantidadRemeras = new JTextField();
-		cajaCantidadRemeras.setText("");
+		cajaCantidadRemeras.setText("1");
 		cajaCantidadRemeras.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent e) {
@@ -68,7 +68,9 @@ public class PantallaDeCompra extends JFrame {
 		lblTipoDeRemera.setBounds(90, 80, 122, 14);
 		contentPane.add(lblTipoDeRemera);
 
-		rdbtnRemeraLisa = new JRadioButton("Lisa");
+		String[] listadoNombresDeLosTipoRemera = registroVentas.listadoNombresDeLosTipoRemera();
+
+		rdbtnRemeraLisa = new JRadioButton(listadoNombresDeLosTipoRemera[0]);
 		rdbtnRemeraLisa.setSelected(true);
 		rdbtnRemeraLisa.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -79,7 +81,7 @@ public class PantallaDeCompra extends JFrame {
 		rdbtnRemeraLisa.setBounds(140, 100, 71, 23);
 		contentPane.add(rdbtnRemeraLisa);
 
-		rdbtnRemeraEstampada = new JRadioButton("Estampada");
+		rdbtnRemeraEstampada = new JRadioButton(listadoNombresDeLosTipoRemera[1]);
 		rdbtnRemeraEstampada.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				rdbtnRemeraLisa.setSelected(false);
@@ -95,12 +97,26 @@ public class PantallaDeCompra extends JFrame {
 		contentPane.add(lblEmailComprador);
 
 		cajaEmailComprador = new JTextField();
-		cajaCantidadRemeras.setText("");
+		cajaEmailComprador.setText("setea@esto.com");
 		cajaEmailComprador.setBounds(90, 160, 250, 20);
 		contentPane.add(cajaEmailComprador);
 		cajaEmailComprador.setColumns(10);
 
 		JButton btnConsultarMontoTotal = new JButton("Monto Total");
+		btnConsultarMontoTotal.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				HashMap<String, String> datosVenta = new HashMap<String, String>();
+				datosVenta.put("CantidadRemeras", cajaCantidadRemeras.getText());
+				datosVenta.put("TipoRemera", tipoRemeraSeleccionada());
+
+				try {
+					JOptionPane.showMessageDialog(null,
+							"Monto Total: " + registroVentas.consultarMontoTotalDeVenta(datosVenta));
+				} catch (DomainExceptions | NumberFormatException e1) {
+					JOptionPane.showMessageDialog(null, e1.getMessage());
+				}
+			}
+		});
 		btnConsultarMontoTotal.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		btnConsultarMontoTotal.setBounds(90, 210, 105, 23);
 		contentPane.add(btnConsultarMontoTotal);
@@ -115,20 +131,21 @@ public class PantallaDeCompra extends JFrame {
 
 				try {
 					registroVentas.nuevaVenta(datosVenta);
+					JOptionPane.showMessageDialog(null, "Venta Exitosa");
 				} catch (DomainExceptions e1) {
 					JOptionPane.showMessageDialog(null, e1.getMessage());
 				}
-			}
-
-			private String tipoRemeraSeleccionada() {
-				if (rdbtnRemeraLisa.isSelected()) {
-					return "Lisa";
-				}
-				return "Estampada";
 			}
 		});
 		btnConfirmarCompra.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		btnConfirmarCompra.setBounds(209, 210, 131, 23);
 		contentPane.add(btnConfirmarCompra);
+	}
+
+	private String tipoRemeraSeleccionada() {
+		if (rdbtnRemeraLisa.isSelected()) {
+			return rdbtnRemeraLisa.getText();
+		}
+		return rdbtnRemeraEstampada.getText();
 	}
 }
