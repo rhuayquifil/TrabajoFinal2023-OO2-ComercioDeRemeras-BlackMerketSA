@@ -7,6 +7,7 @@ import java.util.Objects;
 
 import ar.unrn.domain.portsin.DomainExceptions;
 import ar.unrn.domain.portsin.RegistroDeVentas;
+import ar.unrn.domain.portsout.DateTimeCheck;
 import ar.unrn.domain.portsout.GuardarDatos;
 import ar.unrn.domain.portsout.InfrastructureExceptions;
 
@@ -15,13 +16,13 @@ public class DefaultRegistroDeVentas implements RegistroDeVentas {
 	private ArrayList<Remera> listaDeTiposRemera;
 	private GuardarDatos guardarDatos;
 
-	public DefaultRegistroDeVentas(GuardarDatos guardarDatos) {
+	public DefaultRegistroDeVentas(GuardarDatos guardarDatos, DateTimeCheck dateTimeCheck) {
 		super();
 		this.guardarDatos = guardarDatos;
 
 		this.listaDeTiposRemera = new ArrayList<Remera>();
-		listaDeTiposRemera.add(new RemeraLisa());
-		listaDeTiposRemera.add(new RemeraEstampada());
+		listaDeTiposRemera.add(new RemeraLisa(2000, dateTimeCheck));
+		listaDeTiposRemera.add(new RemeraEstampada(2500, dateTimeCheck));
 	}
 
 	// throw new RuntimeException(e);
@@ -31,9 +32,12 @@ public class DefaultRegistroDeVentas implements RegistroDeVentas {
 			dataValidation(datosVenta.get("CantidadRemeras"), datosVenta.get("TipoRemera"),
 					datosVenta.get("EmailComprador"));
 
-			HashMap<String, Object> registroVenta = new HashMap<String, Object>();
+			LocalDateTime fecha = LocalDateTime.now();
 
-			registroVenta.put("FechaVenta", LocalDateTime.now());
+			datosVenta.put("FechaVenta", fecha.toString());
+
+			HashMap<String, Object> registroVenta = new HashMap<String, Object>();
+			registroVenta.put("FechaVenta", fecha);
 			registroVenta.put("CantidadRemeras", datosVenta.get("CantidadRemeras"));
 			registroVenta.put("MontoTotalFacturado", consultarMontoTotalDeVenta(datosVenta));
 
@@ -77,7 +81,13 @@ public class DefaultRegistroDeVentas implements RegistroDeVentas {
 	public double consultarMontoTotalDeVenta(HashMap<String, String> datosVenta) throws DomainExceptions {
 		for (Remera remera : listaDeTiposRemera) {
 			if (remera.nombre().equals(datosVenta.get("TipoRemera"))) {
-				return remera.consultarMonto(Integer.valueOf(datosVenta.get("CantidadRemeras")));
+
+//				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+//				// Parsear el string a LocalDateTime
+//				LocalDateTime dateTime = LocalDateTime.parse(datosVenta.get("FechaVenta"), formatter);
+
+				return remera.precioFinal(Integer.valueOf(datosVenta.get("CantidadRemeras")));
+//				return 1;
 			}
 		}
 		throw new DomainExceptions("error al procesar consulta");

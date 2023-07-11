@@ -1,36 +1,39 @@
 package ar.unrn.domain.model;
 
-import java.util.Objects;
-
 public abstract class Remera {
 
-	private String nombre;
+	protected double precioUnitario;
 
-	public Remera(String nombre) {
+	public Remera(double precioUnitario) {
 		super();
-		this.nombre = nombre;
+		this.precioUnitario = precioUnitario;
 	}
 
-	public abstract double consultarMonto(int cantidad);
+//	protected DateTimeCheck dateTimeCheck;
+//
+//	public Remera(double precioUnitario, DateTimeCheck dateTimeCheck) {
+//		super();
+//		this.precioUnitario = precioUnitario;
+//		this.dateTimeCheck = dateTimeCheck;
+//	}
 
-	public String nombre() {
-		return this.nombre;
+	// APLICA TEMPLATHE METHOD Y RESOLVE LOS CALCULOS DE LAS REMERAS
+
+	public double precioFinal(int cantidad) {
+
+		// RESOLVE EL CALCULO DE LOS DESCUENTOS
+		double precioFinal = (precioUnitario - descuentoDomingo() - descuentoDe8a10DeLaMañana()) * cantidad;
+		System.out.println(precioFinal);
+
+		return precioFinal - descuentoSabado(cantidad);
+//		return descuentoSabado(cantidad);
 	}
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(nombre);
-	}
+	protected abstract double descuentoDomingo();
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Remera other = (Remera) obj;
-		return Objects.equals(nombre, other.nombre);
-	}
+	protected abstract double descuentoSabado(int cantidad);
+
+	protected abstract double descuentoDe8a10DeLaMañana();
+
+	protected abstract String nombre();
 }
