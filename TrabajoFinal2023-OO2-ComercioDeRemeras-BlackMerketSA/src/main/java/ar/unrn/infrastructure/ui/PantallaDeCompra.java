@@ -133,7 +133,7 @@ public class PantallaDeCompra extends JFrame {
 					registroVentas.nuevaVenta(datosVenta);
 					JOptionPane.showMessageDialog(null, "Venta Exitosa");
 				} catch (DomainExceptions e1) {
-					JOptionPane.showMessageDialog(null, e1.getMessage());
+					JOptionPane.showMessageDialog(null, "Error: Los valores ingresados no son correctos.");
 				}
 			}
 		});

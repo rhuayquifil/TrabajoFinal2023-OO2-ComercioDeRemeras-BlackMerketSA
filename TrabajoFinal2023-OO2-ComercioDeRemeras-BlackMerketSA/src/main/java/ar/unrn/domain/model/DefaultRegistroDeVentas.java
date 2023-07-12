@@ -45,9 +45,6 @@ public class DefaultRegistroDeVentas implements RegistroDeVentas {
 		} catch (InfrastructureExceptions e) {
 			throw new RuntimeException(e);
 		}
-
-//		PERSISTI LA VENTA
-
 	}
 
 	private void dataValidation(String cantidadRemeras, String tipoRemera, String emailComprador)
@@ -55,6 +52,14 @@ public class DefaultRegistroDeVentas implements RegistroDeVentas {
 		Objects.requireNonNull(cantidadRemeras, "Complete todos los campos");
 		if (cantidadRemeras.isEmpty()) {
 			throw new DomainExceptions("Campos con * son obligatorios");
+		}
+
+		try {
+			if (Integer.valueOf(cantidadRemeras) <= 0) {
+				throw new DomainExceptions("Valores Invalidos");
+			}
+		} catch (NumberFormatException e) {
+			throw new DomainExceptions("Valores Invalidos");
 		}
 
 		Objects.requireNonNull(tipoRemera, "Complete todos los campos");
@@ -68,7 +73,7 @@ public class DefaultRegistroDeVentas implements RegistroDeVentas {
 		}
 
 		if (!checkEmail(emailComprador)) {
-			throw new DomainExceptions("Email invalido");
+			throw new DomainExceptions("Valores Invalidos");
 		}
 	}
 
@@ -81,13 +86,7 @@ public class DefaultRegistroDeVentas implements RegistroDeVentas {
 	public double consultarMontoTotalDeVenta(HashMap<String, String> datosVenta) throws DomainExceptions {
 		for (Remera remera : listaDeTiposRemera) {
 			if (remera.nombre().equals(datosVenta.get("TipoRemera"))) {
-
-//				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-//				// Parsear el string a LocalDateTime
-//				LocalDateTime dateTime = LocalDateTime.parse(datosVenta.get("FechaVenta"), formatter);
-
 				return remera.precioFinal(Integer.valueOf(datosVenta.get("CantidadRemeras")));
-//				return 1;
 			}
 		}
 		throw new DomainExceptions("error al procesar consulta");

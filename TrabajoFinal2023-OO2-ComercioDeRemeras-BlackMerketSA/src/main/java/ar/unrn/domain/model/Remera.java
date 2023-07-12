@@ -9,24 +9,9 @@ public abstract class Remera {
 		this.precioUnitario = precioUnitario;
 	}
 
-//	protected DateTimeCheck dateTimeCheck;
-//
-//	public Remera(double precioUnitario, DateTimeCheck dateTimeCheck) {
-//		super();
-//		this.precioUnitario = precioUnitario;
-//		this.dateTimeCheck = dateTimeCheck;
-//	}
-
-	// APLICA TEMPLATHE METHOD Y RESOLVE LOS CALCULOS DE LAS REMERAS
-
 	public double precioFinal(int cantidad) {
-
-		// RESOLVE EL CALCULO DE LOS DESCUENTOS
 		double precioFinal = (precioUnitario - descuentoDomingo() - descuentoDe8a10DeLaMañana()) * cantidad;
-		System.out.println(precioFinal);
-
 		return precioFinal - descuentoSabado(cantidad);
-//		return descuentoSabado(cantidad);
 	}
 
 	protected abstract double descuentoDomingo();

@@ -1,5 +1,7 @@
 package ar.unrn.infrastructure.data;
 
+import java.util.Calendar;
+
 import ar.unrn.domain.portsout.DateTimeCheck;
 
 public class DefaultDateTimeCheck implements DateTimeCheck {
@@ -11,19 +13,28 @@ public class DefaultDateTimeCheck implements DateTimeCheck {
 
 	@Override
 	public boolean esDomingo() {
-		// TODO Auto-generated method stub
+		Calendar calendar = Calendar.getInstance();
+		if (calendar.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY) {
+			return true;
+		}
 		return false;
 	}
 
 	@Override
 	public boolean esSabado() {
-		// TODO Auto-generated method stub
+		Calendar calendar = Calendar.getInstance();
+		if (calendar.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY) {
+			return true;
+		}
 		return false;
 	}
 
 	@Override
 	public boolean horarioEntreLas8amY10am() {
-		// TODO Auto-generated method stub
+		Calendar calendar = Calendar.getInstance();
+		if (calendar.get(Calendar.HOUR_OF_DAY) >= 8 && calendar.get(Calendar.HOUR_OF_DAY) < 10) {
+			return true;
+		}
 		return false;
 	}
 
