@@ -6,17 +6,17 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
-import ar.unrn.domain.portsout.GuardarDatos;
+import ar.unrn.domain.portsout.DataWriter;
 import ar.unrn.domain.portsout.InfrastructureExceptions;
 
-public class EnDiscoGuardarDatos implements GuardarDatos {
+public class DiskDataWriter implements DataWriter {
 
 	private String url;
 	private String separador;
 	private String[] claves;
 //	private HashMap<String, Object> datos;
 
-	public EnDiscoGuardarDatos(String url, String separador) {
+	public DiskDataWriter(String url, String separador) {
 		this.url = url;
 		this.separador = separador;
 	}

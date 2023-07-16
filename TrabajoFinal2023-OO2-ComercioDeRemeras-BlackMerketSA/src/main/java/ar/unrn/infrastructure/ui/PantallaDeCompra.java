@@ -30,16 +30,25 @@ public class PantallaDeCompra extends JFrame {
 
 	public PantallaDeCompra(RegistroDeVentas registroVentas) {
 
+		this.registroVentas = registroVentas;
+
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(50, 100, 450, 300);
 		setTitle("Compras");
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(null);
 		setContentPane(contentPane);
 
-		this.registroVentas = registroVentas;
+		initComponents(registroVentas);
+		iniciarPantallaVentasDelDia(new VentasDelDiaPantalla(registroVentas));
+	}
 
+	private void iniciarPantallaVentasDelDia(VentasDelDiaPantalla ventasDelDiaPantalla) {
+		ventasDelDiaPantalla.setVisible(true);
+	}
+
+	private void initComponents(RegistroDeVentas registroVentas) {
 		JLabel lblRemeras = new JLabel("Cantidad Remeras  *");
 		lblRemeras.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		lblRemeras.setBounds(90, 30, 131, 15);

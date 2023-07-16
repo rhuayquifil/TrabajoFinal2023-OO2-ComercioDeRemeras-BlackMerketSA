@@ -3,26 +3,39 @@ package ar.unrn.domain.model;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Objects;
 
 import ar.unrn.domain.portsin.DomainExceptions;
+import ar.unrn.domain.portsin.Observer;
 import ar.unrn.domain.portsin.RegistroDeVentas;
+import ar.unrn.domain.portsin.Venta;
+import ar.unrn.domain.portsout.DataRepository;
+import ar.unrn.domain.portsout.DataWriter;
 import ar.unrn.domain.portsout.DateTimeCheck;
-import ar.unrn.domain.portsout.GuardarDatos;
 import ar.unrn.domain.portsout.InfrastructureExceptions;
 
-public class DefaultRegistroDeVentas implements RegistroDeVentas {
+public class DefaultRegistroDeVentas extends Observable implements RegistroDeVentas {
 
 	private ArrayList<Remera> listaDeTiposRemera;
-	private GuardarDatos guardarDatos;
+	private DataWriter dataWriter;
+	private DataRepository dataRepository;
 
-	public DefaultRegistroDeVentas(GuardarDatos guardarDatos, DateTimeCheck dateTimeCheck) {
+	// TENES QUE HACER EL PUNTO 6 DEL TP
+
+	public DefaultRegistroDeVentas(DataWriter dataWriter, DataRepository dataRepository, DateTimeCheck dateTimeCheck,
+			List<Observer> subscriptores) {
 		super();
-		this.guardarDatos = guardarDatos;
+		this.dataWriter = dataWriter;
+		this.dataRepository = dataRepository;
 
 		this.listaDeTiposRemera = new ArrayList<Remera>();
 		listaDeTiposRemera.add(new RemeraLisa(2000, dateTimeCheck));
 		listaDeTiposRemera.add(new RemeraEstampada(2500, dateTimeCheck));
+
+		for (Observer observer : subscriptores) {
+			this.subscribir(observer);
+		}
 	}
 
 	// throw new RuntimeException(e);
@@ -41,7 +54,9 @@ public class DefaultRegistroDeVentas implements RegistroDeVentas {
 			registroVenta.put("CantidadRemeras", datosVenta.get("CantidadRemeras"));
 			registroVenta.put("MontoTotalFacturado", consultarMontoTotalDeVenta(datosVenta));
 
-			guardarDatos.nuevoRegistro(registroVenta);
+			dataWriter.nuevoRegistro(registroVenta);
+
+			this.notificar(datosVenta.get("CantidadRemeras"));
 		} catch (InfrastructureExceptions e) {
 			throw new RuntimeException(e);
 		}
@@ -101,6 +116,22 @@ public class DefaultRegistroDeVentas implements RegistroDeVentas {
 			i++;
 		}
 		return listadoNombresDeRemeras;
+	}
+
+	@Override
+	public ArrayList<Venta> ventasDelDia() {
+		ArrayList<Venta> ventasDelDia = new ArrayList<Venta>();
+
+		try {
+			for (String dato : dataRepository.ventasDelDia()) {
+				System.out.println(dato);
+			}
+		} catch (InfrastructureExceptions e) {
+			throw new RuntimeException(e.getMessage());
+		}
+
+//		ventasDelDia.add(new Venta(LocalDateTime.now(), 1, 2222));
+		return ventasDelDia;
 	}
 
 }
