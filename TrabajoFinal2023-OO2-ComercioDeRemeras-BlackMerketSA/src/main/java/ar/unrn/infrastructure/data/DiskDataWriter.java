@@ -32,11 +32,6 @@ public class DiskDataWriter implements DataWriter {
 			i++;
 		}
 
-//		for (i = 0; i < this.claves.length; i++) {
-//			String elemento = this.claves[i];
-//			System.out.println(elemento);
-//		}
-
 		File file = new File(url);
 
 		if (!file.exists()) {

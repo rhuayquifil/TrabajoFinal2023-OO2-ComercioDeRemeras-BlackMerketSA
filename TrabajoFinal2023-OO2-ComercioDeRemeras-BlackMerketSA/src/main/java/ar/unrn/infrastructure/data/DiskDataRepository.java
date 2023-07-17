@@ -26,7 +26,7 @@ public class DiskDataRepository implements DataRepository {
 	}
 
 	@Override
-	public ArrayList<String> ventasDelDia() throws InfrastructureExceptions {
+	public ArrayList<String> ventas() throws InfrastructureExceptions {
 
 		ArrayList<String> data = new ArrayList<>();
 

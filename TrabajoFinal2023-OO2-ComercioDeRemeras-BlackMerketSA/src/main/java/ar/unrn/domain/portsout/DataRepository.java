@@ -4,6 +4,6 @@ import java.util.ArrayList;
 
 public interface DataRepository {
 
-	ArrayList<String> ventasDelDia() throws InfrastructureExceptions;
+	ArrayList<String> ventas() throws InfrastructureExceptions;
 
 }

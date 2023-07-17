@@ -1,5 +1,6 @@
 package ar.unrn.infrastructure.data;
 
+import java.time.LocalDateTime;
 import java.util.Calendar;
 
 import ar.unrn.domain.portsout.DateTimeCheck;
@@ -36,6 +37,12 @@ public class DefaultDateTimeCheck implements DateTimeCheck {
 			return true;
 		}
 		return false;
+	}
+
+	@Override
+	public boolean esFeriado(LocalDateTime dateTime) {
+		//
+		return true;
 	}
 
 }

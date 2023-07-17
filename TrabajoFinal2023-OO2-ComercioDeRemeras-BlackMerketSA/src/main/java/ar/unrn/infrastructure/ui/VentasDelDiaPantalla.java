@@ -63,15 +63,22 @@ public class VentasDelDiaPantalla extends JFrame implements Observer {
 
 	private void actualizarTabla() {
 
-		ventasDelDia = registroVentas.ventasDelDia();
+//		ventasDelDia = registroVentas.ventasDelDia();
 
 		limpiarTabla(table);
 
 		Object[] fila = new Object[3];
-		for (Venta venta : ventasDelDia) {
-			fila[0] = venta.fecha();
+		for (Venta venta : registroVentas.ventasDelDia()) {
+			fila[0] = venta.fechaYYYYMMDDHHSS();
 			fila[1] = venta.cantidadRemeras();
-			fila[2] = "FERIADO";
+
+			if (venta.feriado()) {
+				fila[2] = "FERIADO";
+			} else {
+				fila[2] = "NO FERIADO";
+			}
+
+			// ENVIA MAIL A COMPRADOR
 
 			modelo.addRow(fila);
 		}

@@ -1,6 +1,8 @@
 package ar.unrn.domain.model;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -20,6 +22,7 @@ public class DefaultRegistroDeVentas extends Observable implements RegistroDeVen
 	private ArrayList<Remera> listaDeTiposRemera;
 	private DataWriter dataWriter;
 	private DataRepository dataRepository;
+	private DateTimeCheck dateTimeCheck;
 
 	// TENES QUE HACER EL PUNTO 6 DEL TP
 
@@ -28,6 +31,7 @@ public class DefaultRegistroDeVentas extends Observable implements RegistroDeVen
 		super();
 		this.dataWriter = dataWriter;
 		this.dataRepository = dataRepository;
+		this.dateTimeCheck = dateTimeCheck;
 
 		this.listaDeTiposRemera = new ArrayList<Remera>();
 		listaDeTiposRemera.add(new RemeraLisa(2000, dateTimeCheck));
@@ -120,18 +124,29 @@ public class DefaultRegistroDeVentas extends Observable implements RegistroDeVen
 
 	@Override
 	public ArrayList<Venta> ventasDelDia() {
-		ArrayList<Venta> ventasDelDia = new ArrayList<Venta>();
-
 		try {
-			for (String dato : dataRepository.ventasDelDia()) {
-				System.out.println(dato);
-			}
-		} catch (InfrastructureExceptions e) {
+			ArrayList<Venta> ventasDelDia = new ArrayList<Venta>();
+
+			ArrayList<String> datos = dataRepository.ventas();
+
+			return leerDatos(ventasDelDia, datos);
+		} catch (InfrastructureExceptions | NumberFormatException | DateTimeParseException e) {
 			throw new RuntimeException(e.getMessage());
 		}
 
-//		ventasDelDia.add(new Venta(LocalDateTime.now(), 1, 2222));
-		return ventasDelDia;
 	}
 
+	private ArrayList<Venta> leerDatos(ArrayList<Venta> ventasDelDia, ArrayList<String> datos) {
+		for (int i = 0; i < datos.size(); i++) {
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSSSSS");
+
+			LocalDateTime dateTime = LocalDateTime.parse(datos.get(i + 1), formatter);
+
+			ventasDelDia.add(new Venta(Integer.valueOf(datos.get(i)), dateTime, dateTimeCheck.esFeriado(dateTime),
+					Double.valueOf(datos.get(i + 2))));
+
+			i += 2;
+		}
+		return ventasDelDia;
+	}
 }
