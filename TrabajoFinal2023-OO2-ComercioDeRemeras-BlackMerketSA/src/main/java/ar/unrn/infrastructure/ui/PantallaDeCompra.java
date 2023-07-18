@@ -27,6 +27,7 @@ public class PantallaDeCompra extends JFrame {
 	private JTextField cajaCantidadRemeras;
 	private JTextField cajaEmailComprador;
 	private RegistroDeVentas registroVentas;
+	private VentasDelDiaPantalla pantallaVentasDelDia;
 
 	public PantallaDeCompra(RegistroDeVentas registroVentas) {
 
@@ -41,12 +42,14 @@ public class PantallaDeCompra extends JFrame {
 		setContentPane(contentPane);
 
 		initComponents(registroVentas);
-		iniciarPantallaVentasDelDia(new VentasDelDiaPantalla(registroVentas));
+
+		this.pantallaVentasDelDia = new VentasDelDiaPantalla(registroVentas);
+		this.pantallaVentasDelDia.setVisible(true);
 	}
 
-	private void iniciarPantallaVentasDelDia(VentasDelDiaPantalla ventasDelDiaPantalla) {
-		ventasDelDiaPantalla.setVisible(true);
-	}
+//	private void iniciarPantallaVentasDelDia() {
+//		pantallaVentasDelDia.setVisible(true);
+//	}
 
 	private void initComponents(RegistroDeVentas registroVentas) {
 		JLabel lblRemeras = new JLabel("Cantidad Remeras  *");

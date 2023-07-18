@@ -1,45 +1,41 @@
 package ar.unrn.domain.model;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Objects;
 
 import ar.unrn.domain.portsin.DomainExceptions;
-import ar.unrn.domain.portsin.Observer;
 import ar.unrn.domain.portsin.RegistroDeVentas;
 import ar.unrn.domain.portsin.Venta;
 import ar.unrn.domain.portsout.DataRepository;
 import ar.unrn.domain.portsout.DataWriter;
 import ar.unrn.domain.portsout.DateTimeCheck;
 import ar.unrn.domain.portsout.InfrastructureExceptions;
+import ar.unrn.domain.portsout.Notificacion;
 
-public class DefaultRegistroDeVentas extends Observable implements RegistroDeVentas {
+public class DefaultRegistroDeVentas implements RegistroDeVentas {
 
 	private ArrayList<Remera> listaDeTiposRemera;
 	private DataWriter dataWriter;
 	private DataRepository dataRepository;
 	private DateTimeCheck dateTimeCheck;
-
-	// TENES QUE HACER EL PUNTO 6 DEL TP
+	private Notificacion notificacion;
 
 	public DefaultRegistroDeVentas(DataWriter dataWriter, DataRepository dataRepository, DateTimeCheck dateTimeCheck,
-			List<Observer> subscriptores) {
+			Notificacion notificacion) {
 		super();
 		this.dataWriter = dataWriter;
 		this.dataRepository = dataRepository;
 		this.dateTimeCheck = dateTimeCheck;
+		this.notificacion = notificacion;
 
 		this.listaDeTiposRemera = new ArrayList<Remera>();
 		listaDeTiposRemera.add(new RemeraLisa(2000, dateTimeCheck));
 		listaDeTiposRemera.add(new RemeraEstampada(2500, dateTimeCheck));
-
-		for (Observer observer : subscriptores) {
-			this.subscribir(observer);
-		}
 	}
 
 	// throw new RuntimeException(e);
@@ -60,7 +56,12 @@ public class DefaultRegistroDeVentas extends Observable implements RegistroDeVen
 
 			dataWriter.nuevoRegistro(registroVenta);
 
-			this.notificar(datosVenta.get("CantidadRemeras"));
+			notificacion.enviarCorreo("FinalObjetos2@unrn.com", datosVenta.get("EmailComprador"),
+					"Compra BlackMarket SA",
+					fecha.toLocalDate().toString() + "\nRemeras compradas: " + datosVenta.get("CantidadRemeras")
+							+ "\nMonto Total: " + consultarMontoTotalDeVenta(datosVenta));
+
+//			this.notificar(datosVenta.get("CantidadRemeras"));
 		} catch (InfrastructureExceptions e) {
 			throw new RuntimeException(e);
 		}
@@ -125,28 +126,46 @@ public class DefaultRegistroDeVentas extends Observable implements RegistroDeVen
 	@Override
 	public ArrayList<Venta> ventasDelDia() {
 		try {
-			ArrayList<Venta> ventasDelDia = new ArrayList<Venta>();
-
-			ArrayList<String> datos = dataRepository.ventas();
-
-			return leerDatos(ventasDelDia, datos);
+			return filtarVentasDelDia();
 		} catch (InfrastructureExceptions | NumberFormatException | DateTimeParseException e) {
 			throw new RuntimeException(e.getMessage());
 		}
 
 	}
 
-	private ArrayList<Venta> leerDatos(ArrayList<Venta> ventasDelDia, ArrayList<String> datos) {
+	private ArrayList<Venta> filtarVentasDelDia() throws InfrastructureExceptions {
+		ArrayList<Venta> ventasDelDia = new ArrayList<Venta>();
+
+		for (Venta venta : leerVentas(dataRepository.ventas())) {
+			if (sonFechasDelMismoDia(LocalDateTime.now(), venta.fecha())) {
+				ventasDelDia.add(venta);
+			}
+		}
+
+		return ventasDelDia;
+	}
+
+	private boolean sonFechasDelMismoDia(LocalDateTime dateTime1, LocalDateTime dateTime2) {
+		LocalDate date1 = dateTime1.toLocalDate();
+		LocalDate date2 = dateTime2.toLocalDate();
+
+		return date1.isEqual(date2);
+	}
+
+	private ArrayList<Venta> leerVentas(ArrayList<String> datos) {
+
+		ArrayList<Venta> ventas = new ArrayList<Venta>();
+
 		for (int i = 0; i < datos.size(); i++) {
 			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSSSSS");
 
 			LocalDateTime dateTime = LocalDateTime.parse(datos.get(i + 1), formatter);
 
-			ventasDelDia.add(new Venta(Integer.valueOf(datos.get(i)), dateTime, dateTimeCheck.esFeriado(dateTime),
+			ventas.add(new Venta(Integer.valueOf(datos.get(i)), dateTime, dateTimeCheck.esFeriado(dateTime),
 					Double.valueOf(datos.get(i + 2))));
 
 			i += 2;
 		}
-		return ventasDelDia;
+		return ventas;
 	}
 }
