@@ -136,13 +136,14 @@ public class PantallaDeCompra extends JFrame {
 		JButton btnConfirmarCompra = new JButton("Confirmar Compra");
 		btnConfirmarCompra.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				HashMap<String, String> datosVenta = new HashMap<String, String>();
+				HashMap<String, String> datosVenta = new HashMap<String, String>(); // gordo putoo concha mana
 				datosVenta.put("CantidadRemeras", cajaCantidadRemeras.getText());
 				datosVenta.put("TipoRemera", tipoRemeraSeleccionada());
 				datosVenta.put("EmailComprador", cajaEmailComprador.getText());
 
 				try {
 					registroVentas.nuevaVenta(datosVenta);
+					pantallaVentasDelDia.actualizar();
 					JOptionPane.showMessageDialog(null, "Venta Exitosa");
 				} catch (DomainExceptions e1) {
 					JOptionPane.showMessageDialog(null, "Error: Los valores ingresados no son correctos.");

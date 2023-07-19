@@ -5,7 +5,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Objects;
 
 import ar.unrn.domain.portsin.DomainExceptions;
@@ -15,7 +17,7 @@ import ar.unrn.domain.portsout.DataRepository;
 import ar.unrn.domain.portsout.DataWriter;
 import ar.unrn.domain.portsout.DateTimeCheck;
 import ar.unrn.domain.portsout.InfrastructureExceptions;
-import ar.unrn.domain.portsout.Notificacion;
+import ar.unrn.domain.portsout.Notification;
 
 public class DefaultRegistroDeVentas implements RegistroDeVentas {
 
@@ -23,10 +25,10 @@ public class DefaultRegistroDeVentas implements RegistroDeVentas {
 	private DataWriter dataWriter;
 	private DataRepository dataRepository;
 	private DateTimeCheck dateTimeCheck;
-	private Notificacion notificacion;
+	private Notification notificacion;
 
 	public DefaultRegistroDeVentas(DataWriter dataWriter, DataRepository dataRepository, DateTimeCheck dateTimeCheck,
-			Notificacion notificacion) {
+			Notification notificacion) {
 		super();
 		this.dataWriter = dataWriter;
 		this.dataRepository = dataRepository;
@@ -56,14 +58,16 @@ public class DefaultRegistroDeVentas implements RegistroDeVentas {
 
 			dataWriter.nuevoRegistro(registroVenta);
 
-			notificacion.enviarCorreo("FinalObjetos2@unrn.com", datosVenta.get("EmailComprador"),
-					"Compra BlackMarket SA",
-					fecha.toLocalDate().toString() + "\nRemeras compradas: " + datosVenta.get("CantidadRemeras")
-							+ "\nMonto Total: " + consultarMontoTotalDeVenta(datosVenta));
+//			notificacion.enviarCorreo("FinalObjetos2@unrn.com", datosVenta.get("EmailComprador"),
+//					"Compra BlackMarket SA",
+//					fecha.toLocalDate().toString() + "\nRemeras compradas: " + datosVenta.get("CantidadRemeras")
+//							+ "\nMonto Total: " + consultarMontoTotalDeVenta(datosVenta));
 
-//			this.notificar(datosVenta.get("CantidadRemeras"));
+			// ACTUALIZAR TABLA DESPUES DE AGREGAR UNA VENTA Y EMPEZA CON LA BASE DE DATOS
+			// gordo putoooooo
+
 		} catch (InfrastructureExceptions e) {
-			throw new RuntimeException(e);
+			throw new RuntimeException(e.getMessage());
 		}
 	}
 
@@ -157,9 +161,8 @@ public class DefaultRegistroDeVentas implements RegistroDeVentas {
 		ArrayList<Venta> ventas = new ArrayList<Venta>();
 
 		for (int i = 0; i < datos.size(); i++) {
-			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSSSSS");
 
-			LocalDateTime dateTime = LocalDateTime.parse(datos.get(i + 1), formatter);
+			LocalDateTime dateTime = leerFechaVenta(datos, i);
 
 			ventas.add(new Venta(Integer.valueOf(datos.get(i)), dateTime, dateTimeCheck.esFeriado(dateTime),
 					Double.valueOf(datos.get(i + 2))));
@@ -167,5 +170,24 @@ public class DefaultRegistroDeVentas implements RegistroDeVentas {
 			i += 2;
 		}
 		return ventas;
+	}
+
+	private LocalDateTime leerFechaVenta(ArrayList<String> datos, int i) {
+		List<String> patrones = Arrays.asList("yyyy-MM-dd'T'HH:mm:ss", "yyyy-MM-dd'T'HH:mm:ss.SSSSSSSSS");
+
+		LocalDateTime dateTime = null;
+
+		for (String patron : patrones) {
+			try {
+				DateTimeFormatter formatter = DateTimeFormatter.ofPattern(patron);
+
+				dateTime = LocalDateTime.parse(datos.get(i + 1), formatter);
+
+				break; // sino tiro exception, sale del bucle
+			} catch (Exception e) {
+				// Si ocurre un error al parsear con un patrón, intentar con el siguiente
+			}
+		}
+		return dateTime;
 	}
 }

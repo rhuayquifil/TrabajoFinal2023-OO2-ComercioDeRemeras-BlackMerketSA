@@ -1,6 +1,6 @@
 package ar.unrn.domain.portsout;
 
-public interface Notificacion {
+public interface Notification {
 
 	void enviarCorreo(String correoRemitente, String correoDestinatario, String contenidoSujeto,
 			String contenidoMensaje);

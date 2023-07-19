@@ -2,7 +2,7 @@ package ar.unrn.infrastructure.data;
 
 import java.util.Properties;
 
-import ar.unrn.domain.portsout.Notificacion;
+import ar.unrn.domain.portsout.Notification;
 import jakarta.mail.Authenticator;
 import jakarta.mail.Message;
 import jakarta.mail.MessagingException;
@@ -12,13 +12,13 @@ import jakarta.mail.Transport;
 import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
 
-public class EmailNotificacion implements Notificacion {
+public class EmailNotification implements Notification {
 
 	private final String username;
 	private final String password;
 	private String hostAddress;
 
-	public EmailNotificacion(String username, String password, String hostAddress) {
+	public EmailNotification(String username, String password, String hostAddress) {
 		super();
 		this.username = username;
 		this.password = password;
