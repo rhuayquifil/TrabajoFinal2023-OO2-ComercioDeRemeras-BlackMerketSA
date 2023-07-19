@@ -51,10 +51,10 @@ public class DefaultRegistroDeVentas implements RegistroDeVentas {
 
 			datosVenta.put("FechaVenta", fecha.toString());
 
-			HashMap<String, Object> registroVenta = new HashMap<String, Object>();
-			registroVenta.put("FechaVenta", fecha);
+			HashMap<String, String> registroVenta = new HashMap<String, String>();
+			registroVenta.put("FechaVenta", fecha.toString());
 			registroVenta.put("CantidadRemeras", datosVenta.get("CantidadRemeras"));
-			registroVenta.put("MontoTotalFacturado", consultarMontoTotalDeVenta(datosVenta));
+			registroVenta.put("MontoTotalFacturado", String.valueOf(consultarMontoTotalDeVenta(datosVenta)));
 
 			dataWriter.nuevoRegistro(registroVenta);
 

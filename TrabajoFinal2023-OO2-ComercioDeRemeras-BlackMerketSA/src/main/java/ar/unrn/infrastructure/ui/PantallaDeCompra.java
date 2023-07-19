@@ -124,7 +124,7 @@ public class PantallaDeCompra extends JFrame {
 				try {
 					JOptionPane.showMessageDialog(null,
 							"Monto Total: " + registroVentas.consultarMontoTotalDeVenta(datosVenta));
-				} catch (DomainExceptions | NumberFormatException e1) {
+				} catch (DomainExceptions | RuntimeException e1) {
 					JOptionPane.showMessageDialog(null, e1.getMessage());
 				}
 			}
@@ -147,6 +147,8 @@ public class PantallaDeCompra extends JFrame {
 					JOptionPane.showMessageDialog(null, "Venta Exitosa");
 				} catch (DomainExceptions e1) {
 					JOptionPane.showMessageDialog(null, "Error: Los valores ingresados no son correctos.");
+				} catch (RuntimeException e2) {
+					JOptionPane.showMessageDialog(null, "Error: " + e2.getMessage());
 				}
 			}
 		});

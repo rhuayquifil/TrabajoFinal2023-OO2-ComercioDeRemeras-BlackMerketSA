@@ -22,12 +22,12 @@ public class DiskDataWriter implements DataWriter {
 	}
 
 	@Override
-	public void nuevoRegistro(HashMap<String, Object> datos) throws InfrastructureExceptions {
+	public void nuevoRegistro(HashMap<String, String> datos) throws InfrastructureExceptions {
 
 		this.claves = new String[datos.size()];
 
 		int i = 0;
-		for (Entry<String, Object> entry : datos.entrySet()) {
+		for (Entry<String, String> entry : datos.entrySet()) {
 			this.claves[i] = entry.getKey();
 			i++;
 		}
@@ -41,7 +41,7 @@ public class DiskDataWriter implements DataWriter {
 		escribirEnDisco(file, datos);
 	}
 
-	private void escribirEnDisco(File file, HashMap<String, Object> datos) throws InfrastructureExceptions {
+	private void escribirEnDisco(File file, HashMap<String, String> datos) throws InfrastructureExceptions {
 		try {
 			FileWriter writer = new FileWriter(file, true);
 
@@ -52,7 +52,7 @@ public class DiskDataWriter implements DataWriter {
 		}
 	}
 
-	private void crearArchivoYEscribirEnDisco(File file, HashMap<String, Object> datos)
+	private void crearArchivoYEscribirEnDisco(File file, HashMap<String, String> datos)
 			throws InfrastructureExceptions {
 		try {
 			FileWriter writer = new FileWriter(file);
@@ -64,7 +64,7 @@ public class DiskDataWriter implements DataWriter {
 		}
 	}
 
-	private void escribir(FileWriter writer, HashMap<String, Object> datos) throws IOException {
+	private void escribir(FileWriter writer, HashMap<String, String> datos) throws IOException {
 
 		writer.write(datos.get(this.claves[0]) + separador + datos.get(this.claves[1]) + separador
 				+ datos.get(this.claves[2]) + '\n');

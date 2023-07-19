@@ -4,6 +4,9 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
@@ -23,7 +26,7 @@ public class DataBaseWriter implements DataWriter {
 	}
 
 	@Override
-	public void nuevoRegistro(HashMap<String, Object> datos) throws InfrastructureExceptions {
+	public void nuevoRegistro(HashMap<String, String> datos) throws InfrastructureExceptions {
 
 		try (Connection conn = DriverManager.getConnection(properties.get("url"), properties.get("usuario"),
 				properties.get("contrasena"));
@@ -33,27 +36,21 @@ public class DataBaseWriter implements DataWriter {
 			this.claves = new String[datos.size()];
 
 			int i = 0;
-			for (Entry<String, Object> entry : datos.entrySet()) {
+			for (Entry<String, String> entry : datos.entrySet()) {
 				this.claves[i] = entry.getKey();
 				i++;
 			}
-			for (String string : claves) {
-				System.out.println(string);
-			}
+//			for (String string : claves) {
+//				System.out.println(string);
+//			}
 
-			state.setTimestamp(1, new Timestamp(1));
-			state.setInt(2, Integer.valueOf(datos.get(this.claves[0]));
-			state.setDouble(3, 2.00);
+			LocalDateTime dateVenta = LocalDateTime.parse(datos.get(this.claves[1]),
+					DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSSSSS"));
 
-//			SimpleDateFormat formatoOriginal = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSSSSSSS");
-//			Date dateOriginal = formatoOriginal.parse((String) datos.get(this.claves[0]));
-//
-//			Timestamp fechaVenta = new Timestamp(dateOriginal.getTime());
-//
-//			state.setTimestamp(1, fechaVenta);
+			state.setTimestamp(1, Timestamp.valueOf(dateVenta));
 
-//			state.setInt(2, (int) datos.get(this.claves[1]));
-//			state.setInt(2, 1);
+			state.setInt(2, 1);
+			state.setInt(3, 1);
 //
 //			state.setDouble(3, (double) datos.get(this.claves[2]));
 //			state.setDouble(3, 2.00);
@@ -64,7 +61,7 @@ public class DataBaseWriter implements DataWriter {
 				throw new InfrastructureExceptions("error al ingresar registro");
 			}
 
-		} catch (SQLException | NumberFormatException e) {
+		} catch (SQLException | NumberFormatException | DateTimeParseException e) {
 			throw new InfrastructureExceptions("error al prosesar consulta: " + e.getMessage());
 		}
 	}
