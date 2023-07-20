@@ -47,10 +47,6 @@ public class PantallaDeCompra extends JFrame {
 		this.pantallaVentasDelDia.setVisible(true);
 	}
 
-//	private void iniciarPantallaVentasDelDia() {
-//		pantallaVentasDelDia.setVisible(true);
-//	}
-
 	private void initComponents(RegistroDeVentas registroVentas) {
 		JLabel lblRemeras = new JLabel("Cantidad Remeras  *");
 		lblRemeras.setFont(new Font("Tahoma", Font.PLAIN, 12));
@@ -136,7 +132,7 @@ public class PantallaDeCompra extends JFrame {
 		JButton btnConfirmarCompra = new JButton("Confirmar Compra");
 		btnConfirmarCompra.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				HashMap<String, String> datosVenta = new HashMap<String, String>(); // gordo putoo concha mana
+				HashMap<String, String> datosVenta = new HashMap<String, String>();
 				datosVenta.put("CantidadRemeras", cajaCantidadRemeras.getText());
 				datosVenta.put("TipoRemera", tipoRemeraSeleccionada());
 				datosVenta.put("EmailComprador", cajaEmailComprador.getText());

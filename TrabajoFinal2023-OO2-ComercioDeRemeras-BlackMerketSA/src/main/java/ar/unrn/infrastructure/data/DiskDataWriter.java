@@ -14,7 +14,6 @@ public class DiskDataWriter implements DataWriter {
 	private String url;
 	private String separador;
 	private String[] claves;
-//	private HashMap<String, Object> datos;
 
 	public DiskDataWriter(String url, String separador) {
 		this.url = url;

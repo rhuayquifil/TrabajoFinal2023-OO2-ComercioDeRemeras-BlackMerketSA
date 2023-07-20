@@ -45,4 +45,9 @@ public class DefaultDateTimeCheck implements DateTimeCheck {
 		return true;
 	}
 
+	@Override
+	public LocalDateTime now() {
+		return LocalDateTime.now();
+	}
+
 }
