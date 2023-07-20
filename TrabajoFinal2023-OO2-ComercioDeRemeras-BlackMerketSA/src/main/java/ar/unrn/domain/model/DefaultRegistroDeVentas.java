@@ -63,9 +63,6 @@ public class DefaultRegistroDeVentas implements RegistroDeVentas {
 //					fecha.toLocalDate().toString() + "\nRemeras compradas: " + datosVenta.get("CantidadRemeras")
 //							+ "\nMonto Total: " + consultarMontoTotalDeVenta(datosVenta));
 
-			// ACTUALIZAR TABLA DESPUES DE AGREGAR UNA VENTA Y EMPEZA CON LA BASE DE DATOS
-			// gordo putoooooo
-
 		} catch (InfrastructureExceptions e) {
 			throw new RuntimeException(e.getMessage());
 		}
