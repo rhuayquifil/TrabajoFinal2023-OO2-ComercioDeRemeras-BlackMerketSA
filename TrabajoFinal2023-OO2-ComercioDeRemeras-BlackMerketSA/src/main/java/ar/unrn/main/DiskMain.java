@@ -1,7 +1,5 @@
 package ar.unrn.main;
 
-import javax.swing.JOptionPane;
-
 import ar.unrn.domain.model.DefaultRegistroDeVentas;
 import ar.unrn.infrastructure.data.DefaultDateTimeCheck;
 import ar.unrn.infrastructure.data.DiskDataRepository;
@@ -26,7 +24,8 @@ public class DiskMain {
 			pantallaDeCompra.setVisible(true);
 
 		} catch (Exception e) {
-			JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+//			JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+			e.printStackTrace();
 		}
 	}
 }

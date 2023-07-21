@@ -59,8 +59,7 @@ public class DefaultRegistroDeVentas implements RegistroDeVentas {
 			dataWriter.nuevoRegistro(registroVenta);
 
 			notificacion.enviarCorreo("FinalObjetos2@unrn.com", datosVenta.get("EmailComprador"),
-					"Compra BlackMarket SA",
-					fecha.toLocalDate().toString() + "\nRemeras compradas: " + datosVenta.get("CantidadRemeras")
+					"Compra BlackMarket SA", fecha + "\nRemeras compradas: " + datosVenta.get("CantidadRemeras")
 							+ "\nMonto Total: " + consultarMontoTotalDeVenta(datosVenta));
 
 		} catch (InfrastructureExceptions e) {
