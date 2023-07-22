@@ -8,13 +8,13 @@ import ar.unrn.infrastructure.data.DataBaseRepository;
 import ar.unrn.infrastructure.data.DataBaseWriter;
 import ar.unrn.infrastructure.data.DefaultDateTimeCheck;
 import ar.unrn.infrastructure.data.EmailNotification;
-import ar.unrn.infrastructure.ui.PantallaDeCompra;
+import ar.unrn.infrastructure.ui.PantallaDeVenta;
 
 public class DataBaseMain {
 
 	public static void main(String[] args) {
 		try {
-			PantallaDeCompra pantallaDeCompra = new PantallaDeCompra(new DefaultRegistroDeVentas(
+			PantallaDeVenta pantallaDeCompra = new PantallaDeVenta(new DefaultRegistroDeVentas(
 					new DataBaseWriter(new DataBasePropiedades("jdbc:mysql://127.0.0.1/blackmarket_sa", "root", ""),
 							"INSERT INTO registro_ventas (fecha, cantidad, monto_total_facturado)"
 									+ "VALUES (?, ?, ?);"),

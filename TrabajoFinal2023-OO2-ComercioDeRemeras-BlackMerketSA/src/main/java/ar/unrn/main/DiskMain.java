@@ -1,17 +1,19 @@
 package ar.unrn.main;
 
+import javax.swing.JOptionPane;
+
 import ar.unrn.domain.model.DefaultRegistroDeVentas;
 import ar.unrn.infrastructure.data.DefaultDateTimeCheck;
 import ar.unrn.infrastructure.data.DiskDataRepository;
 import ar.unrn.infrastructure.data.DiskDataWriter;
 import ar.unrn.infrastructure.data.EmailNotification;
-import ar.unrn.infrastructure.ui.PantallaDeCompra;
+import ar.unrn.infrastructure.ui.PantallaDeVenta;
 
 public class DiskMain {
 
 	public static void main(String[] args) {
 		try {
-			PantallaDeCompra pantallaDeCompra = new PantallaDeCompra(new DefaultRegistroDeVentas(new DiskDataWriter(
+			PantallaDeVenta pantallaDeCompra = new PantallaDeVenta(new DefaultRegistroDeVentas(new DiskDataWriter(
 					"C:\\Users\\ezehu\\git\\TrabajoFinal2023-OO2-ComercioDeRemeras-BlackMerketSA\\BlackMarketSA.txt",
 					" | "),
 					new DiskDataRepository(
@@ -24,8 +26,7 @@ public class DiskMain {
 			pantallaDeCompra.setVisible(true);
 
 		} catch (Exception e) {
-//			JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
 		}
 	}
 }

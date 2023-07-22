@@ -19,7 +19,7 @@ import javax.swing.border.EmptyBorder;
 import ar.unrn.domain.portsin.DomainExceptions;
 import ar.unrn.domain.portsin.RegistroDeVentas;
 
-public class PantallaDeCompra extends JFrame {
+public class PantallaDeVenta extends JFrame {
 
 	private JPanel contentPane;
 	private JRadioButton rdbtnRemeraLisa;
@@ -29,13 +29,13 @@ public class PantallaDeCompra extends JFrame {
 	private RegistroDeVentas registroVentas;
 	private VentasDelDiaPantalla pantallaVentasDelDia;
 
-	public PantallaDeCompra(RegistroDeVentas registroVentas) {
+	public PantallaDeVenta(RegistroDeVentas registroVentas) {
 
 		this.registroVentas = registroVentas;
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(50, 100, 450, 300);
-		setTitle("Compras");
+		setTitle("Ventas");
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(null);
@@ -129,7 +129,7 @@ public class PantallaDeCompra extends JFrame {
 		btnConsultarMontoTotal.setBounds(90, 210, 105, 23);
 		contentPane.add(btnConsultarMontoTotal);
 
-		JButton btnConfirmarCompra = new JButton("Confirmar Compra");
+		JButton btnConfirmarCompra = new JButton("Vender");
 		btnConfirmarCompra.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				HashMap<String, String> datosVenta = new HashMap<String, String>();
@@ -138,18 +138,30 @@ public class PantallaDeCompra extends JFrame {
 				datosVenta.put("EmailComprador", cajaEmailComprador.getText());
 
 				try {
-					registroVentas.nuevaVenta(datosVenta);
-					pantallaVentasDelDia.actualizar();
-					JOptionPane.showMessageDialog(null, "Venta Exitosa");
+					confirmacionDeVenta(registroVentas, datosVenta);
 				} catch (DomainExceptions e1) {
 					JOptionPane.showMessageDialog(null, "Error: Los valores ingresados no son correctos.");
 				} catch (RuntimeException e2) {
 					JOptionPane.showMessageDialog(null, "Error: " + e2.getMessage());
 				}
 			}
+
+			private void confirmacionDeVenta(RegistroDeVentas registroVentas, HashMap<String, String> datosVenta)
+					throws DomainExceptions {
+				int opcion = JOptionPane.showConfirmDialog(null, "Confirmar Venta?", "Confirmación",
+						JOptionPane.YES_NO_OPTION);
+
+				if (opcion == JOptionPane.YES_OPTION) {
+					registroVentas.nuevaVenta(datosVenta);
+
+					pantallaVentasDelDia.actualizar();
+
+					JOptionPane.showMessageDialog(null, "Venta Exitosa");
+				}
+			}
 		});
 		btnConfirmarCompra.setFont(new Font("Tahoma", Font.PLAIN, 10));
-		btnConfirmarCompra.setBounds(209, 210, 131, 23);
+		btnConfirmarCompra.setBounds(220, 210, 120, 23);
 		contentPane.add(btnConfirmarCompra);
 	}
 

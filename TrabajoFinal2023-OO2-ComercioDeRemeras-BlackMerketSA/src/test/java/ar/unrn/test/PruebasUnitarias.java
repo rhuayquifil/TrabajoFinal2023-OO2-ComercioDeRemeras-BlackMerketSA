@@ -26,9 +26,31 @@ class PruebasUnitarias {
 					"C:\\Users\\ezehu\\git\\TrabajoFinal2023-OO2-ComercioDeRemeras-BlackMerketSA\\BlackMarketSA.txt",
 					" | ");
 
+			ArrayList<String> data = new ArrayList<>();
+
+			data.add(String.valueOf(2));
+			data.add(String.valueOf(LocalDateTime.now().plusDays(-1)));
+			data.add(String.valueOf(4000));
+
+			data.add(String.valueOf(1));
+			data.add(String.valueOf(LocalDateTime.now()));
+			data.add(String.valueOf(2500));
+
+			data.add(String.valueOf(2));
+			data.add(String.valueOf(LocalDateTime.now()));
+			data.add(String.valueOf(4000));
+
+			data.add(String.valueOf(3));
+			data.add(String.valueOf(LocalDateTime.now().plusDays(2)));
+			data.add(String.valueOf(7500));
+
+			data.add(String.valueOf(8));
+			data.add(String.valueOf(LocalDateTime.now().plusDays(2)));
+			data.add(String.valueOf(16000));
+
 			FakeDiskDataRepository fakeDiskDataRepository = new FakeDiskDataRepository(
 					"C:\\Users\\ezehu\\git\\TrabajoFinal2023-OO2-ComercioDeRemeras-BlackMerketSA\\BlackMarketSA.txt",
-					" | ");
+					" | ", data);
 
 			FakeDefaultDateTimeCheck fakeDefaultDateTimeCheck = new FakeDefaultDateTimeCheck(
 					LocalDateTime.of(2023, 07, 20, 16, 30, 0, 0));
@@ -69,7 +91,29 @@ class PruebasUnitarias {
 					"INSERT INTO registro_ventas (fecha, cantidad, monto_total_facturado)" + "VALUES (?, ?, ?);",
 					" | ");
 
-			FakeDataBaseRepository fakeDataBaseRepository = new FakeDataBaseRepository(properties);
+			ArrayList<String> data = new ArrayList<>();
+
+			data.add(String.valueOf(2));
+			data.add(String.valueOf(LocalDateTime.now().plusDays(-1)));
+			data.add(String.valueOf(4000));
+
+			data.add(String.valueOf(1));
+			data.add(String.valueOf(LocalDateTime.now()));
+			data.add(String.valueOf(2500));
+
+			data.add(String.valueOf(2));
+			data.add(String.valueOf(LocalDateTime.now()));
+			data.add(String.valueOf(4000));
+
+			data.add(String.valueOf(3));
+			data.add(String.valueOf(LocalDateTime.now().plusDays(2)));
+			data.add(String.valueOf(7500));
+
+			data.add(String.valueOf(8));
+			data.add(String.valueOf(LocalDateTime.now().plusDays(2)));
+			data.add(String.valueOf(16000));
+
+			FakeDataBaseRepository fakeDataBaseRepository = new FakeDataBaseRepository(properties, data);
 
 			FakeDefaultDateTimeCheck fakeDefaultDateTimeCheck = new FakeDefaultDateTimeCheck(
 					LocalDateTime.of(2023, 07, 20, 9, 30, 0, 0));
@@ -108,9 +152,31 @@ class PruebasUnitarias {
 					"C:\\Users\\ezehu\\git\\TrabajoFinal2023-OO2-ComercioDeRemeras-BlackMerketSA\\BlackMarketSA.txt",
 					" | ");
 
+			ArrayList<String> data = new ArrayList<>();
+
+			data.add(String.valueOf(2));
+			data.add(String.valueOf(LocalDateTime.now().plusDays(-1)));
+			data.add(String.valueOf(4000));
+
+			data.add(String.valueOf(1));
+			data.add(String.valueOf(LocalDateTime.now()));
+			data.add(String.valueOf(2500));
+
+			data.add(String.valueOf(2));
+			data.add(String.valueOf(LocalDateTime.now()));
+			data.add(String.valueOf(4000));
+
+			data.add(String.valueOf(3));
+			data.add(String.valueOf(LocalDateTime.now().plusDays(2)));
+			data.add(String.valueOf(7500));
+
+			data.add(String.valueOf(8));
+			data.add(String.valueOf(LocalDateTime.now().plusDays(2)));
+			data.add(String.valueOf(16000));
+
 			FakeDiskDataRepository fakeDiskDataRepository = new FakeDiskDataRepository(
 					"C:\\Users\\ezehu\\git\\TrabajoFinal2023-OO2-ComercioDeRemeras-BlackMerketSA\\BlackMarketSA.txt",
-					" | ");
+					" | ", data);
 
 			FakeDefaultDateTimeCheck fakeDefaultDateTimeCheck = new FakeDefaultDateTimeCheck(
 					LocalDateTime.of(2023, 07, 23, 16, 30, 0, 0));
@@ -149,9 +215,31 @@ class PruebasUnitarias {
 					"C:\\Users\\ezehu\\git\\TrabajoFinal2023-OO2-ComercioDeRemeras-BlackMerketSA\\BlackMarketSA.txt",
 					" | ");
 
+			ArrayList<String> data = new ArrayList<>();
+
+			data.add(String.valueOf(2));
+			data.add(String.valueOf(LocalDateTime.now().plusDays(-1)));
+			data.add(String.valueOf(4000));
+
+			data.add(String.valueOf(1));
+			data.add(String.valueOf(LocalDateTime.now()));
+			data.add(String.valueOf(2500));
+
+			data.add(String.valueOf(2));
+			data.add(String.valueOf(LocalDateTime.now()));
+			data.add(String.valueOf(4000));
+
+			data.add(String.valueOf(3));
+			data.add(String.valueOf(LocalDateTime.now().plusDays(2)));
+			data.add(String.valueOf(7500));
+
+			data.add(String.valueOf(8));
+			data.add(String.valueOf(LocalDateTime.now().plusDays(2)));
+			data.add(String.valueOf(16000));
+
 			FakeDiskDataRepository fakeDiskDataRepository = new FakeDiskDataRepository(
 					"C:\\Users\\ezehu\\git\\TrabajoFinal2023-OO2-ComercioDeRemeras-BlackMerketSA\\BlackMarketSA.txt",
-					" | ");
+					" | ", data);
 
 			FakeDefaultDateTimeCheck fakeDefaultDateTimeCheck = new FakeDefaultDateTimeCheck(
 					LocalDateTime.of(2023, 07, 22, 16, 30, 0, 0));
@@ -186,13 +274,35 @@ class PruebasUnitarias {
 	void ventaTresRemerasEstampadasDiaSabado() {
 		try {
 
-			FakeDiskDataWriter fakeDiskDataWriter = new FakeDiskDataWriter(
-					"C:\\Users\\ezehu\\git\\TrabajoFinal2023-OO2-ComercioDeRemeras-BlackMerketSA\\BlackMarketSA.txt",
+			Propiedades properties = new DataBasePropiedades("jdbc:mysql://127.0.0.1/blackmarket_sa", "root", "");
+
+			FakeDataBaseWriter fakeDataBaseWriter = new FakeDataBaseWriter(properties,
+					"INSERT INTO registro_ventas (fecha, cantidad, monto_total_facturado)" + "VALUES (?, ?, ?);",
 					" | ");
 
-			FakeDiskDataRepository fakeDiskDataRepository = new FakeDiskDataRepository(
-					"C:\\Users\\ezehu\\git\\TrabajoFinal2023-OO2-ComercioDeRemeras-BlackMerketSA\\BlackMarketSA.txt",
-					" | ");
+			ArrayList<String> data = new ArrayList<>();
+
+			data.add(String.valueOf(2));
+			data.add(String.valueOf(LocalDateTime.now().plusDays(-1)));
+			data.add(String.valueOf(4000));
+
+			data.add(String.valueOf(1));
+			data.add(String.valueOf(LocalDateTime.now()));
+			data.add(String.valueOf(2500));
+
+			data.add(String.valueOf(2));
+			data.add(String.valueOf(LocalDateTime.now()));
+			data.add(String.valueOf(4000));
+
+			data.add(String.valueOf(3));
+			data.add(String.valueOf(LocalDateTime.now().plusDays(2)));
+			data.add(String.valueOf(7500));
+
+			data.add(String.valueOf(8));
+			data.add(String.valueOf(LocalDateTime.now().plusDays(2)));
+			data.add(String.valueOf(16000));
+
+			FakeDataBaseRepository fakeDataBaseRepository = new FakeDataBaseRepository(properties, data);
 
 			FakeDefaultDateTimeCheck fakeDefaultDateTimeCheck = new FakeDefaultDateTimeCheck(
 					LocalDateTime.of(2023, 07, 22, 16, 30, 0, 0));
@@ -200,8 +310,8 @@ class PruebasUnitarias {
 			FakeEmailNotification fakeEmailNotification = new FakeEmailNotification("22655f44218bb3", "efb11829ac8703",
 					"sandbox.smtp.mailtrap.io");
 
-			DefaultRegistroDeVentas registroDeVentas = new DefaultRegistroDeVentas(fakeDiskDataWriter,
-					fakeDiskDataRepository, fakeDefaultDateTimeCheck, fakeEmailNotification);
+			DefaultRegistroDeVentas registroDeVentas = new DefaultRegistroDeVentas(fakeDataBaseWriter,
+					fakeDataBaseRepository, fakeDefaultDateTimeCheck, fakeEmailNotification);
 
 			HashMap<String, String> datosVenta = new HashMap<String, String>();
 			datosVenta.put("CantidadRemeras", "3");
@@ -210,7 +320,7 @@ class PruebasUnitarias {
 
 			registroDeVentas.nuevaVenta(datosVenta);
 
-			assertEquals("3 | " + fakeDefaultDateTimeCheck.now() + " | 7500.0", fakeDiskDataWriter.resultado());
+			assertEquals("3 | " + fakeDefaultDateTimeCheck.now() + " | 7500.0", fakeDataBaseWriter.resultado());
 
 			assertEquals(
 					"FinalObjetos2@unrn.com\n" + datosVenta.get("EmailComprador") + "\nCompra BlackMarket SA" + "\n"
@@ -233,7 +343,29 @@ class PruebasUnitarias {
 					"INSERT INTO registro_ventas (fecha, cantidad, monto_total_facturado)" + "VALUES (?, ?, ?);",
 					" | ");
 
-			FakeDataBaseRepository fakeDataBaseRepository = new FakeDataBaseRepository(properties);
+			ArrayList<String> data = new ArrayList<>();
+
+			data.add(String.valueOf(2));
+			data.add(String.valueOf(LocalDateTime.now().plusDays(-1)));
+			data.add(String.valueOf(4000));
+
+			data.add(String.valueOf(1));
+			data.add(String.valueOf(LocalDateTime.now()));
+			data.add(String.valueOf(2500));
+
+			data.add(String.valueOf(2));
+			data.add(String.valueOf(LocalDateTime.now()));
+			data.add(String.valueOf(4000));
+
+			data.add(String.valueOf(3));
+			data.add(String.valueOf(LocalDateTime.now().plusDays(2)));
+			data.add(String.valueOf(7500));
+
+			data.add(String.valueOf(8));
+			data.add(String.valueOf(LocalDateTime.now().plusDays(2)));
+			data.add(String.valueOf(16000));
+
+			FakeDataBaseRepository fakeDataBaseRepository = new FakeDataBaseRepository(properties, data);
 
 			FakeDefaultDateTimeCheck fakeDefaultDateTimeCheck = new FakeDefaultDateTimeCheck(
 					LocalDateTime.of(2023, 07, 15, 9, 30, 0, 0));
@@ -264,7 +396,7 @@ class PruebasUnitarias {
 		}
 	}
 
-//	@Test
+	@Test
 	void leerVentasDelDia() {
 		try {
 
@@ -274,7 +406,29 @@ class PruebasUnitarias {
 					"INSERT INTO registro_ventas (fecha, cantidad, monto_total_facturado)" + "VALUES (?, ?, ?);",
 					" | ");
 
-			FakeDataBaseRepository fakeDataBaseRepository = new FakeDataBaseRepository(properties);
+			ArrayList<String> data = new ArrayList<>();
+
+			data.add(String.valueOf(2));
+			data.add(String.valueOf(LocalDateTime.now().plusDays(-1)));
+			data.add(String.valueOf(4000));
+
+			data.add(String.valueOf(1));
+			data.add(String.valueOf(LocalDateTime.now()));
+			data.add(String.valueOf(2500));
+
+			data.add(String.valueOf(2));
+			data.add(String.valueOf(LocalDateTime.now()));
+			data.add(String.valueOf(4000));
+
+			data.add(String.valueOf(3));
+			data.add(String.valueOf(LocalDateTime.now().plusDays(2)));
+			data.add(String.valueOf(7500));
+
+			data.add(String.valueOf(8));
+			data.add(String.valueOf(LocalDateTime.now().plusDays(2)));
+			data.add(String.valueOf(16000));
+
+			FakeDataBaseRepository fakeDataBaseRepository = new FakeDataBaseRepository(properties, data);
 
 			FakeDefaultDateTimeCheck fakeDefaultDateTimeCheck = new FakeDefaultDateTimeCheck(
 					LocalDateTime.of(2023, 07, 15, 9, 30, 0, 0));
@@ -302,9 +456,31 @@ class PruebasUnitarias {
 					"C:\\Users\\ezehu\\git\\TrabajoFinal2023-OO2-ComercioDeRemeras-BlackMerketSA\\BlackMarketSA.txt",
 					" | ");
 
+			ArrayList<String> data = new ArrayList<>();
+
+			data.add(String.valueOf(2));
+			data.add(String.valueOf(LocalDateTime.now().plusDays(-1)));
+			data.add(String.valueOf(4000));
+
+			data.add(String.valueOf(1));
+			data.add(String.valueOf(LocalDateTime.now()));
+			data.add(String.valueOf(2500));
+
+			data.add(String.valueOf(2));
+			data.add(String.valueOf(LocalDateTime.now()));
+			data.add(String.valueOf(4000));
+
+			data.add(String.valueOf(3));
+			data.add(String.valueOf(LocalDateTime.now().plusDays(2)));
+			data.add(String.valueOf(7500));
+
+			data.add(String.valueOf(8));
+			data.add(String.valueOf(LocalDateTime.now().plusDays(2)));
+			data.add(String.valueOf(16000));
+
 			FakeDiskDataRepository fakeDiskDataRepository = new FakeDiskDataRepository(
 					"C:\\Users\\ezehu\\git\\TrabajoFinal2023-OO2-ComercioDeRemeras-BlackMerketSA\\BlackMarketSA.txt",
-					" | ");
+					" | ", data);
 
 			FakeDefaultDateTimeCheck fakeDefaultDateTimeCheck = new FakeDefaultDateTimeCheck(
 					LocalDateTime.of(2023, 07, 22, 16, 30, 0, 0));
@@ -337,9 +513,31 @@ class PruebasUnitarias {
 					"C:\\Users\\ezehu\\git\\TrabajoFinal2023-OO2-ComercioDeRemeras-BlackMerketSA\\BlackMarketSA.txt",
 					" | ");
 
+			ArrayList<String> data = new ArrayList<>();
+
+			data.add(String.valueOf(2));
+			data.add(String.valueOf(LocalDateTime.now().plusDays(-1)));
+			data.add(String.valueOf(4000));
+
+			data.add(String.valueOf(1));
+			data.add(String.valueOf(LocalDateTime.now()));
+			data.add(String.valueOf(2500));
+
+			data.add(String.valueOf(2));
+			data.add(String.valueOf(LocalDateTime.now()));
+			data.add(String.valueOf(4000));
+
+			data.add(String.valueOf(3));
+			data.add(String.valueOf(LocalDateTime.now().plusDays(2)));
+			data.add(String.valueOf(7500));
+
+			data.add(String.valueOf(8));
+			data.add(String.valueOf(LocalDateTime.now().plusDays(2)));
+			data.add(String.valueOf(16000));
+
 			FakeDiskDataRepository fakeDiskDataRepository = new FakeDiskDataRepository(
 					"C:\\Users\\ezehu\\git\\TrabajoFinal2023-OO2-ComercioDeRemeras-BlackMerketSA\\BlackMarketSA.txt",
-					" | ");
+					" | ", data);
 
 			FakeDefaultDateTimeCheck fakeDefaultDateTimeCheck = new FakeDefaultDateTimeCheck(
 					LocalDateTime.of(2023, 07, 22, 16, 30, 0, 0));
@@ -368,13 +566,35 @@ class PruebasUnitarias {
 	void errorEmailInvalido() {
 		try {
 
-			FakeDiskDataWriter fakeDiskDataWriter = new FakeDiskDataWriter(
-					"C:\\Users\\ezehu\\git\\TrabajoFinal2023-OO2-ComercioDeRemeras-BlackMerketSA\\BlackMarketSA.txt",
+			Propiedades properties = new DataBasePropiedades("jdbc:mysql://127.0.0.1/blackmarket_sa", "root", "");
+
+			FakeDataBaseWriter fakeDataBaseWriter = new FakeDataBaseWriter(properties,
+					"INSERT INTO registro_ventas (fecha, cantidad, monto_total_facturado)" + "VALUES (?, ?, ?);",
 					" | ");
 
-			FakeDiskDataRepository fakeDiskDataRepository = new FakeDiskDataRepository(
-					"C:\\Users\\ezehu\\git\\TrabajoFinal2023-OO2-ComercioDeRemeras-BlackMerketSA\\BlackMarketSA.txt",
-					" | ");
+			ArrayList<String> data = new ArrayList<>();
+
+			data.add(String.valueOf(2));
+			data.add(String.valueOf(LocalDateTime.now().plusDays(-1)));
+			data.add(String.valueOf(4000));
+
+			data.add(String.valueOf(1));
+			data.add(String.valueOf(LocalDateTime.now()));
+			data.add(String.valueOf(2500));
+
+			data.add(String.valueOf(2));
+			data.add(String.valueOf(LocalDateTime.now()));
+			data.add(String.valueOf(4000));
+
+			data.add(String.valueOf(3));
+			data.add(String.valueOf(LocalDateTime.now().plusDays(2)));
+			data.add(String.valueOf(7500));
+
+			data.add(String.valueOf(8));
+			data.add(String.valueOf(LocalDateTime.now().plusDays(2)));
+			data.add(String.valueOf(16000));
+
+			FakeDataBaseRepository fakeDataBaseRepository = new FakeDataBaseRepository(properties, data);
 
 			FakeDefaultDateTimeCheck fakeDefaultDateTimeCheck = new FakeDefaultDateTimeCheck(
 					LocalDateTime.of(2023, 07, 21, 16, 30, 0, 0));
@@ -382,13 +602,13 @@ class PruebasUnitarias {
 			FakeEmailNotification fakeEmailNotification = new FakeEmailNotification("22655f44218bb3", "efb11829ac8703",
 					"sandbox.smtp.mailtrap.io");
 
-			DefaultRegistroDeVentas registroDeVentas = new DefaultRegistroDeVentas(fakeDiskDataWriter,
-					fakeDiskDataRepository, fakeDefaultDateTimeCheck, fakeEmailNotification);
+			DefaultRegistroDeVentas registroDeVentas = new DefaultRegistroDeVentas(fakeDataBaseWriter,
+					fakeDataBaseRepository, fakeDefaultDateTimeCheck, fakeEmailNotification);
 
 			HashMap<String, String> datosVenta = new HashMap<String, String>();
 			datosVenta.put("CantidadRemeras", "4");
 			datosVenta.put("TipoRemera", "Estampada");
-			datosVenta.put("EmailComprador", "emailinvalido@unrn");
+			datosVenta.put("EmailComprador", "emailinvalido.unrn");
 
 			registroDeVentas.nuevaVenta(datosVenta);
 

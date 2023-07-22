@@ -58,9 +58,9 @@ public class DefaultRegistroDeVentas implements RegistroDeVentas {
 
 			dataWriter.nuevoRegistro(registroVenta);
 
-			notificacion.enviarCorreo("FinalObjetos2@unrn.com", datosVenta.get("EmailComprador"),
-					"Compra BlackMarket SA", fecha + "\nRemeras compradas: " + datosVenta.get("CantidadRemeras")
-							+ "\nMonto Total: " + consultarMontoTotalDeVenta(datosVenta));
+//			notificacion.enviarCorreo("FinalObjetos2@unrn.com", datosVenta.get("EmailComprador"),
+//					"Compra BlackMarket SA", fecha + "\nRemeras compradas: " + datosVenta.get("CantidadRemeras")
+//							+ "\nMonto Total: " + consultarMontoTotalDeVenta(datosVenta));
 
 		} catch (InfrastructureExceptions e) {
 			throw new RuntimeException(e.getMessage());
@@ -137,7 +137,7 @@ public class DefaultRegistroDeVentas implements RegistroDeVentas {
 		ArrayList<Venta> ventasDelDia = new ArrayList<Venta>();
 
 		for (Venta venta : leerVentas(dataRepository.ventas())) {
-			if (sonFechasDelMismoDia(LocalDateTime.now(), venta.fecha())) {
+			if (sonFechasDelMismoDia(dateTimeCheck.now(), venta.fecha())) {
 				ventasDelDia.add(venta);
 			}
 		}

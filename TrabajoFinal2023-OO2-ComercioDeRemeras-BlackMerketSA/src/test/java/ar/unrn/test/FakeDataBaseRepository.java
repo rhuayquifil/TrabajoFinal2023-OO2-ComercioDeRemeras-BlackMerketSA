@@ -9,28 +9,15 @@ import ar.unrn.domain.portsout.Propiedades;
 public class FakeDataBaseRepository implements DataRepository {
 
 	private Propiedades properties;
+	private ArrayList<String> data;
 
-	public FakeDataBaseRepository(Propiedades properties) {
+	public FakeDataBaseRepository(Propiedades properties, ArrayList<String> data) {
 		this.properties = properties;
+		this.data = data;
 	}
 
 	@Override
 	public ArrayList<String> ventas() throws InfrastructureExceptions {
-
-		ArrayList<String> data = new ArrayList<>();
-
-		data.add(String.valueOf(1));
-		data.add(String.valueOf("2023-07-20T16:33:47"));
-		data.add(String.valueOf(2000));
-
-		data.add(String.valueOf(2));
-		data.add(String.valueOf("2023-07-21T16:33:47"));
-		data.add(String.valueOf(4000));
-
-		data.add(String.valueOf(3));
-		data.add(String.valueOf("2023-07-21T16:34:40"));
-		data.add(String.valueOf(7500));
-
-		return data;
+		return this.data;
 	}
 }
