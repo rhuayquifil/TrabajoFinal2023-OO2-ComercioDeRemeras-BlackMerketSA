@@ -64,7 +64,7 @@ public class VentasDelDiaPantalla extends JFrame {
 		Object[] fila = new Object[3];
 		for (Venta venta : registroVentas.ventasDelDia()) {
 			fila[0] = venta.fechaYYYYMMDDHHSS();
-			fila[1] = venta.cantidadRemeras();
+			fila[1] = venta.montoTotalFacturado();
 
 			if (venta.feriado()) {
 				fila[2] = "FERIADO";

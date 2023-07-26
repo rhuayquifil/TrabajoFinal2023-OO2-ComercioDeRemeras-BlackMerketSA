@@ -21,7 +21,7 @@ public class DataBaseRepository implements DataRepository {
 	}
 
 	@Override
-	public ArrayList<String> ventas() throws InfrastructureExceptions {
+	public ArrayList<String> sales() throws InfrastructureExceptions {
 
 		ArrayList<String> data = new ArrayList<>();
 
@@ -30,24 +30,28 @@ public class DataBaseRepository implements DataRepository {
 				java.sql.Statement sent = conn.createStatement();
 				ResultSet resul = sent.executeQuery("SELECT * FROM registro_ventas")) {
 
-			while (resul.next()) {
-				// fecha venta
-				Timestamp dateVenta = resul.getTimestamp("fecha");
-
-				LocalDateTime fechaVenta = dateVenta.toLocalDateTime();
-
-				int cantidad = resul.getInt("cantidad");
-
-				double montoTotalFacturado = resul.getDouble("monto_total_facturado");
-
-				data.add(String.valueOf(cantidad));
-				data.add(String.valueOf(fechaVenta));
-				data.add(String.valueOf(montoTotalFacturado));
-			}
+			readData(data, resul);
 		} catch (SQLException e) {
 			throw new InfrastructureExceptions("error al procesar consulta");
 		}
 
 		return data;
+	}
+
+	private void readData(ArrayList<String> data, ResultSet resul) throws SQLException {
+		while (resul.next()) {
+			// fecha venta
+			Timestamp dateVenta = resul.getTimestamp("fecha");
+
+			LocalDateTime fechaVenta = dateVenta.toLocalDateTime();
+
+			int cantidad = resul.getInt("cantidad");
+
+			double montoTotalFacturado = resul.getDouble("monto_total_facturado");
+
+			data.add(String.valueOf(cantidad));
+			data.add(String.valueOf(fechaVenta));
+			data.add(String.valueOf(montoTotalFacturado));
+		}
 	}
 }

@@ -21,8 +21,20 @@ public class DiskDataWriter implements DataWriter {
 	}
 
 	@Override
-	public void nuevoRegistro(HashMap<String, String> datos) throws InfrastructureExceptions {
+	public void newRegister(HashMap<String, String> datos) throws InfrastructureExceptions {
 
+		readKeys(datos);
+
+		File file = new File(url);
+
+		if (!file.exists()) {
+			createFileAndWriteDisk(file, datos);
+		}
+
+		writeDisk(file, datos);
+	}
+
+	private void readKeys(HashMap<String, String> datos) {
 		this.claves = new String[datos.size()];
 
 		int i = 0;
@@ -30,40 +42,32 @@ public class DiskDataWriter implements DataWriter {
 			this.claves[i] = entry.getKey();
 			i++;
 		}
-
-		File file = new File(url);
-
-		if (!file.exists()) {
-			crearArchivoYEscribirEnDisco(file, datos);
-		}
-
-		escribirEnDisco(file, datos);
 	}
 
-	private void escribirEnDisco(File file, HashMap<String, String> datos) throws InfrastructureExceptions {
+	private void writeDisk(File file, HashMap<String, String> datos) throws InfrastructureExceptions {
 		try {
 			FileWriter writer = new FileWriter(file, true);
 
-			escribir(writer, datos);
+			write(writer, datos);
 
 		} catch (IOException e) {
 			throw new InfrastructureExceptions("Ocurrio un error al editar el archivo.");
 		}
 	}
 
-	private void crearArchivoYEscribirEnDisco(File file, HashMap<String, String> datos)
+	private void createFileAndWriteDisk(File file, HashMap<String, String> datos)
 			throws InfrastructureExceptions {
 		try {
 			FileWriter writer = new FileWriter(file);
 
-			escribir(writer, datos);
+			write(writer, datos);
 
 		} catch (IOException e) {
 			throw new InfrastructureExceptions("Ocurrio un error al crear el archivo.");
 		}
 	}
 
-	private void escribir(FileWriter writer, HashMap<String, String> datos) throws IOException {
+	private void write(FileWriter writer, HashMap<String, String> datos) throws IOException {
 
 		writer.write(datos.get(this.claves[0]) + separador + datos.get(this.claves[1]) + separador
 				+ datos.get(this.claves[2]) + '\n');

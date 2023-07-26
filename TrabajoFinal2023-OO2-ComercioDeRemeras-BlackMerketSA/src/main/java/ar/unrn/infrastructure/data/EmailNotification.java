@@ -26,7 +26,7 @@ public class EmailNotification implements Notification {
 	}
 
 	@Override
-	public void enviarCorreo(String correoRemitente, String correoDestinatario, String contenidoSujeto,
+	public void sendMail(String correoRemitente, String correoDestinatario, String contenidoSujeto,
 			String contenidoMensaje) {
 
 		// configure Mailtrap's SMTP server details

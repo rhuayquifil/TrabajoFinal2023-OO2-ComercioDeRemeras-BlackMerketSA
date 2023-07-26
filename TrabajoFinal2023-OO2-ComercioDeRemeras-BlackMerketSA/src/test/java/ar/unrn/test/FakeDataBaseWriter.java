@@ -27,7 +27,7 @@ public class FakeDataBaseWriter implements DataWriter {
 	}
 
 	@Override
-	public void nuevoRegistro(HashMap<String, String> datos) throws InfrastructureExceptions {
+	public void newRegister(HashMap<String, String> datos) throws InfrastructureExceptions {
 
 		try (Connection conn = DriverManager.getConnection(properties.get("url"), properties.get("usuario"),
 				properties.get("contrasena"));

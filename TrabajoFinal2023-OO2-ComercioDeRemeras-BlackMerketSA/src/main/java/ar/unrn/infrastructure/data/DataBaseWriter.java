@@ -26,23 +26,16 @@ public class DataBaseWriter implements DataWriter {
 	}
 
 	@Override
-	public void nuevoRegistro(HashMap<String, String> datos) throws InfrastructureExceptions {
+	public void newRegister(HashMap<String, String> datos) throws InfrastructureExceptions {
 
 		try (Connection conn = DriverManager.getConnection(properties.get("url"), properties.get("usuario"),
 				properties.get("contrasena"));
 				java.sql.PreparedStatement state = conn.prepareStatement(sqlInsertRegistro)) {
-//		INSERT INTO registro_ventas (fecha, cantidad, monto_total_facturado)" + "VALUES (?, ?, ?);
 
-			this.claves = new String[datos.size()];
+			// INSERT INTO registro_ventas (fecha, cantidad, monto_total_facturado)" +
+			// "VALUES (?, ?, ?);
 
-			int i = 0;
-			for (Entry<String, String> entry : datos.entrySet()) {
-				this.claves[i] = entry.getKey();
-				i++;
-			}
-//			for (String string : claves) {
-//				System.out.println(string);
-//			}
+			readKeys(datos); // recupera las claves del hashmap
 
 			LocalDateTime dateVenta = LocalDateTime.parse(datos.get(this.claves[1]),
 					DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSSSSS"));
@@ -60,6 +53,16 @@ public class DataBaseWriter implements DataWriter {
 
 		} catch (SQLException | NumberFormatException | DateTimeParseException e) {
 			throw new InfrastructureExceptions("error al prosesar consulta: " + e.getMessage());
+		}
+	}
+
+	private void readKeys(HashMap<String, String> datos) {
+		this.claves = new String[datos.size()];
+
+		int i = 0;
+		for (Entry<String, String> entry : datos.entrySet()) {
+			this.claves[i] = entry.getKey();
+			i++;
 		}
 	}
 }

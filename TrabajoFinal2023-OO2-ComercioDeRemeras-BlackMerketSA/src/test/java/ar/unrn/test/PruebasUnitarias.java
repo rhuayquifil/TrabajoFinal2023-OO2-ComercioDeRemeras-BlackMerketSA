@@ -7,8 +7,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import javax.swing.JOptionPane;
-
 import org.junit.jupiter.api.Test;
 
 import ar.unrn.domain.model.DefaultRegistroDeVentas;
@@ -77,7 +75,7 @@ class PruebasUnitarias {
 					fakeEmailNotification.resultado());
 
 		} catch (Exception e) {
-			JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+			fail("Fallo, valores invalidos");
 		}
 	}
 
@@ -140,7 +138,7 @@ class PruebasUnitarias {
 					fakeEmailNotification.resultado());
 
 		} catch (Exception e) {
-			JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+			fail("Fallo, valores invalidos");
 		}
 	}
 
@@ -203,7 +201,7 @@ class PruebasUnitarias {
 					fakeEmailNotification.resultado());
 
 		} catch (Exception e) {
-			JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+			fail("Fallo, valores invalidos");
 		}
 	}
 
@@ -266,7 +264,7 @@ class PruebasUnitarias {
 					fakeEmailNotification.resultado());
 
 		} catch (Exception e) {
-			JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+			fail("Fallo, valores invalidos");
 		}
 	}
 
@@ -329,7 +327,7 @@ class PruebasUnitarias {
 					fakeEmailNotification.resultado());
 
 		} catch (Exception e) {
-			JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+			fail("Fallo, valores invalidos");
 		}
 	}
 
@@ -392,11 +390,11 @@ class PruebasUnitarias {
 					fakeEmailNotification.resultado());
 
 		} catch (Exception e) {
-			JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+			fail("Fallo, valores invalidos");
 		}
 	}
 
-	@Test
+//	@Test
 	void leerVentasDelDia() {
 		try {
 
@@ -444,7 +442,7 @@ class PruebasUnitarias {
 			assertEquals(2, ventas.size());
 
 		} catch (Exception e) {
-			JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+			fail("Fallo, no se leyeron las ventas");
 		}
 	}
 

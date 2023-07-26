@@ -54,7 +54,7 @@ public class PantallaDeVenta extends JFrame {
 		contentPane.add(lblRemeras);
 
 		cajaCantidadRemeras = new JTextField();
-		cajaCantidadRemeras.setText("1");
+//		cajaCantidadRemeras.setText("1");
 		cajaCantidadRemeras.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent e) {
@@ -105,7 +105,7 @@ public class PantallaDeVenta extends JFrame {
 		contentPane.add(lblEmailComprador);
 
 		cajaEmailComprador = new JTextField();
-		cajaEmailComprador.setText("setea@esto.com");
+//		cajaEmailComprador.setText("setea@esto.com");
 		cajaEmailComprador.setBounds(90, 160, 250, 20);
 		contentPane.add(cajaEmailComprador);
 		cajaEmailComprador.setColumns(10);
@@ -143,6 +143,9 @@ public class PantallaDeVenta extends JFrame {
 					JOptionPane.showMessageDialog(null, "Error: Los valores ingresados no son correctos.");
 				} catch (RuntimeException e2) {
 					JOptionPane.showMessageDialog(null, "Error: " + e2.getMessage());
+				} finally {
+					cajaCantidadRemeras.setText("");
+					cajaEmailComprador.setText("");
 				}
 			}
 

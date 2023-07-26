@@ -20,7 +20,7 @@ public class FakeDiskDataWriter implements DataWriter {
 	}
 
 	@Override
-	public void nuevoRegistro(HashMap<String, String> datos) throws InfrastructureExceptions {
+	public void newRegister(HashMap<String, String> datos) throws InfrastructureExceptions {
 		this.claves = new String[datos.size()];
 
 		int i = 0;

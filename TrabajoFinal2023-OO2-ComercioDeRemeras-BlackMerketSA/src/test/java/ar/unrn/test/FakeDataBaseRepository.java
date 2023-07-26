@@ -17,7 +17,7 @@ public class FakeDataBaseRepository implements DataRepository {
 	}
 
 	@Override
-	public ArrayList<String> ventas() throws InfrastructureExceptions {
+	public ArrayList<String> sales() throws InfrastructureExceptions {
 		return this.data;
 	}
 }
