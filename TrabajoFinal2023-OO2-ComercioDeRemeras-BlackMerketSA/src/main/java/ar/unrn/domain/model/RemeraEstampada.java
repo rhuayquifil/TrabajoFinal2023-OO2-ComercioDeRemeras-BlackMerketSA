@@ -22,7 +22,7 @@ public class RemeraEstampada extends Remera {
 
 	@Override
 	protected double descuentoSabado(int cantidad) {
-		if (dateTimeCheck.esSabado() & cantidad > 3) {
+		if (dateTimeCheck.esSabado() && cantidad > 3) {
 			double precioConDescuento = precioUnitario * (1 - 0.12);
 			return (precioUnitario - precioConDescuento) * cantidad;
 		}

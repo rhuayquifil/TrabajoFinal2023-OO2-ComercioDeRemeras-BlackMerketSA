@@ -3,6 +3,7 @@ package ar.unrn.infrastructure.data;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
@@ -41,7 +42,7 @@ public class DiskDataRepository implements DataRepository {
 
 			b.close();
 		} catch (FileNotFoundException e) {
-			throw new InfrastructureExceptions("EnDiscoLeerDatos FileNotFoundException");
+			crearArchivo();
 		} catch (IOException e) {
 			throw new InfrastructureExceptions("EnDiscoLeerDatos IOException");
 		} catch (NullPointerException e) {
@@ -49,6 +50,14 @@ public class DiskDataRepository implements DataRepository {
 		}
 
 		return data;
+	}
+
+	private void crearArchivo() throws InfrastructureExceptions {
+		try {
+			new FileWriter(urlArchivo);
+		} catch (IOException e1) {
+			throw new InfrastructureExceptions("EnDiscoLeerDatos FileNotFoundException");
+		}
 	}
 
 	private void readData(ArrayList<String> data, BufferedReader b) throws IOException {

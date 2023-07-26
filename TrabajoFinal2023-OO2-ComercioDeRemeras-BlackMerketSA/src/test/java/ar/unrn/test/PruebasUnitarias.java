@@ -11,8 +11,6 @@ import org.junit.jupiter.api.Test;
 
 import ar.unrn.domain.model.DefaultRegistroDeVentas;
 import ar.unrn.domain.portsin.Venta;
-import ar.unrn.domain.portsout.Propiedades;
-import ar.unrn.infrastructure.data.DataBasePropiedades;
 
 class PruebasUnitarias {
 
@@ -20,9 +18,7 @@ class PruebasUnitarias {
 	void ventaDeUnaRemeraLisaSinDescuento() {
 		try {
 
-			FakeDiskDataWriter fakeDiskDataWriter = new FakeDiskDataWriter(
-					"C:\\Users\\ezehu\\git\\TrabajoFinal2023-OO2-ComercioDeRemeras-BlackMerketSA\\BlackMarketSA.txt",
-					" | ");
+			FakeDiskDataWriter fakeDiskDataWriter = new FakeDiskDataWriter(" | ");
 
 			ArrayList<String> data = new ArrayList<>();
 
@@ -46,15 +42,12 @@ class PruebasUnitarias {
 			data.add(String.valueOf(LocalDateTime.now().plusDays(2)));
 			data.add(String.valueOf(16000));
 
-			FakeDiskDataRepository fakeDiskDataRepository = new FakeDiskDataRepository(
-					"C:\\Users\\ezehu\\git\\TrabajoFinal2023-OO2-ComercioDeRemeras-BlackMerketSA\\BlackMarketSA.txt",
-					" | ", data);
+			FakeDiskDataRepository fakeDiskDataRepository = new FakeDiskDataRepository(data);
 
 			FakeDefaultDateTimeCheck fakeDefaultDateTimeCheck = new FakeDefaultDateTimeCheck(
 					LocalDateTime.of(2023, 07, 20, 16, 30, 0, 0));
 
-			FakeEmailNotification fakeEmailNotification = new FakeEmailNotification("22655f44218bb3", "efb11829ac8703",
-					"sandbox.smtp.mailtrap.io");
+			FakeEmailNotification fakeEmailNotification = new FakeEmailNotification();
 
 			DefaultRegistroDeVentas registroDeVentas = new DefaultRegistroDeVentas(fakeDiskDataWriter,
 					fakeDiskDataRepository, fakeDefaultDateTimeCheck, fakeEmailNotification);
@@ -83,11 +76,7 @@ class PruebasUnitarias {
 	void ventaDeDiezRemerasEstampadaSinDescuento() {
 		try {
 
-			Propiedades properties = new DataBasePropiedades("jdbc:mysql://127.0.0.1/blackmarket_sa", "root", "");
-
-			FakeDataBaseWriter fakeDataBaseWriter = new FakeDataBaseWriter(properties,
-					"INSERT INTO registro_ventas (fecha, cantidad, monto_total_facturado)" + "VALUES (?, ?, ?);",
-					" | ");
+			FakeDataBaseWriter fakeDataBaseWriter = new FakeDataBaseWriter(" | ");
 
 			ArrayList<String> data = new ArrayList<>();
 
@@ -111,13 +100,12 @@ class PruebasUnitarias {
 			data.add(String.valueOf(LocalDateTime.now().plusDays(2)));
 			data.add(String.valueOf(16000));
 
-			FakeDataBaseRepository fakeDataBaseRepository = new FakeDataBaseRepository(properties, data);
+			FakeDataBaseRepository fakeDataBaseRepository = new FakeDataBaseRepository(data);
 
 			FakeDefaultDateTimeCheck fakeDefaultDateTimeCheck = new FakeDefaultDateTimeCheck(
 					LocalDateTime.of(2023, 07, 20, 9, 30, 0, 0));
 
-			FakeEmailNotification fakeEmailNotification = new FakeEmailNotification("22655f44218bb3", "efb11829ac8703",
-					"sandbox.smtp.mailtrap.io");
+			FakeEmailNotification fakeEmailNotification = new FakeEmailNotification();
 
 			DefaultRegistroDeVentas registroDeVentas = new DefaultRegistroDeVentas(fakeDataBaseWriter,
 					fakeDataBaseRepository, fakeDefaultDateTimeCheck, fakeEmailNotification);
@@ -146,9 +134,7 @@ class PruebasUnitarias {
 	void ventaCuatroRemerasEstampadasDiaDomingo() {
 		try {
 
-			FakeDiskDataWriter fakeDiskDataWriter = new FakeDiskDataWriter(
-					"C:\\Users\\ezehu\\git\\TrabajoFinal2023-OO2-ComercioDeRemeras-BlackMerketSA\\BlackMarketSA.txt",
-					" | ");
+			FakeDiskDataWriter fakeDiskDataWriter = new FakeDiskDataWriter(" | ");
 
 			ArrayList<String> data = new ArrayList<>();
 
@@ -172,15 +158,12 @@ class PruebasUnitarias {
 			data.add(String.valueOf(LocalDateTime.now().plusDays(2)));
 			data.add(String.valueOf(16000));
 
-			FakeDiskDataRepository fakeDiskDataRepository = new FakeDiskDataRepository(
-					"C:\\Users\\ezehu\\git\\TrabajoFinal2023-OO2-ComercioDeRemeras-BlackMerketSA\\BlackMarketSA.txt",
-					" | ", data);
+			FakeDiskDataRepository fakeDiskDataRepository = new FakeDiskDataRepository(data);
 
 			FakeDefaultDateTimeCheck fakeDefaultDateTimeCheck = new FakeDefaultDateTimeCheck(
 					LocalDateTime.of(2023, 07, 23, 16, 30, 0, 0));
 
-			FakeEmailNotification fakeEmailNotification = new FakeEmailNotification("22655f44218bb3", "efb11829ac8703",
-					"sandbox.smtp.mailtrap.io");
+			FakeEmailNotification fakeEmailNotification = new FakeEmailNotification();
 
 			DefaultRegistroDeVentas registroDeVentas = new DefaultRegistroDeVentas(fakeDiskDataWriter,
 					fakeDiskDataRepository, fakeDefaultDateTimeCheck, fakeEmailNotification);
@@ -209,9 +192,7 @@ class PruebasUnitarias {
 	void ventaCincoRemerasEstampadasDiaSabado() {
 		try {
 
-			FakeDiskDataWriter fakeDiskDataWriter = new FakeDiskDataWriter(
-					"C:\\Users\\ezehu\\git\\TrabajoFinal2023-OO2-ComercioDeRemeras-BlackMerketSA\\BlackMarketSA.txt",
-					" | ");
+			FakeDiskDataWriter fakeDiskDataWriter = new FakeDiskDataWriter(" | ");
 
 			ArrayList<String> data = new ArrayList<>();
 
@@ -235,15 +216,12 @@ class PruebasUnitarias {
 			data.add(String.valueOf(LocalDateTime.now().plusDays(2)));
 			data.add(String.valueOf(16000));
 
-			FakeDiskDataRepository fakeDiskDataRepository = new FakeDiskDataRepository(
-					"C:\\Users\\ezehu\\git\\TrabajoFinal2023-OO2-ComercioDeRemeras-BlackMerketSA\\BlackMarketSA.txt",
-					" | ", data);
+			FakeDiskDataRepository fakeDiskDataRepository = new FakeDiskDataRepository(data);
 
 			FakeDefaultDateTimeCheck fakeDefaultDateTimeCheck = new FakeDefaultDateTimeCheck(
 					LocalDateTime.of(2023, 07, 22, 16, 30, 0, 0));
 
-			FakeEmailNotification fakeEmailNotification = new FakeEmailNotification("22655f44218bb3", "efb11829ac8703",
-					"sandbox.smtp.mailtrap.io");
+			FakeEmailNotification fakeEmailNotification = new FakeEmailNotification();
 
 			DefaultRegistroDeVentas registroDeVentas = new DefaultRegistroDeVentas(fakeDiskDataWriter,
 					fakeDiskDataRepository, fakeDefaultDateTimeCheck, fakeEmailNotification);
@@ -272,11 +250,7 @@ class PruebasUnitarias {
 	void ventaTresRemerasEstampadasDiaSabado() {
 		try {
 
-			Propiedades properties = new DataBasePropiedades("jdbc:mysql://127.0.0.1/blackmarket_sa", "root", "");
-
-			FakeDataBaseWriter fakeDataBaseWriter = new FakeDataBaseWriter(properties,
-					"INSERT INTO registro_ventas (fecha, cantidad, monto_total_facturado)" + "VALUES (?, ?, ?);",
-					" | ");
+			FakeDataBaseWriter fakeDataBaseWriter = new FakeDataBaseWriter(" | ");
 
 			ArrayList<String> data = new ArrayList<>();
 
@@ -300,13 +274,12 @@ class PruebasUnitarias {
 			data.add(String.valueOf(LocalDateTime.now().plusDays(2)));
 			data.add(String.valueOf(16000));
 
-			FakeDataBaseRepository fakeDataBaseRepository = new FakeDataBaseRepository(properties, data);
+			FakeDataBaseRepository fakeDataBaseRepository = new FakeDataBaseRepository(data);
 
 			FakeDefaultDateTimeCheck fakeDefaultDateTimeCheck = new FakeDefaultDateTimeCheck(
-					LocalDateTime.of(2023, 07, 22, 16, 30, 0, 0));
+					LocalDateTime.of(2023, 07, 20, 9, 30, 0, 0));
 
-			FakeEmailNotification fakeEmailNotification = new FakeEmailNotification("22655f44218bb3", "efb11829ac8703",
-					"sandbox.smtp.mailtrap.io");
+			FakeEmailNotification fakeEmailNotification = new FakeEmailNotification();
 
 			DefaultRegistroDeVentas registroDeVentas = new DefaultRegistroDeVentas(fakeDataBaseWriter,
 					fakeDataBaseRepository, fakeDefaultDateTimeCheck, fakeEmailNotification);
@@ -335,11 +308,7 @@ class PruebasUnitarias {
 	void ventaDeDosRemeraLisaSabadoEntre8y10DeLaMañana() {
 		try {
 
-			Propiedades properties = new DataBasePropiedades("jdbc:mysql://127.0.0.1/blackmarket_sa", "root", "");
-
-			FakeDataBaseWriter fakeDataBaseWriter = new FakeDataBaseWriter(properties,
-					"INSERT INTO registro_ventas (fecha, cantidad, monto_total_facturado)" + "VALUES (?, ?, ?);",
-					" | ");
+			FakeDataBaseWriter fakeDataBaseWriter = new FakeDataBaseWriter(" | ");
 
 			ArrayList<String> data = new ArrayList<>();
 
@@ -363,13 +332,12 @@ class PruebasUnitarias {
 			data.add(String.valueOf(LocalDateTime.now().plusDays(2)));
 			data.add(String.valueOf(16000));
 
-			FakeDataBaseRepository fakeDataBaseRepository = new FakeDataBaseRepository(properties, data);
+			FakeDataBaseRepository fakeDataBaseRepository = new FakeDataBaseRepository(data);
 
 			FakeDefaultDateTimeCheck fakeDefaultDateTimeCheck = new FakeDefaultDateTimeCheck(
-					LocalDateTime.of(2023, 07, 15, 9, 30, 0, 0));
+					LocalDateTime.of(2023, 07, 20, 9, 30, 0, 0));
 
-			FakeEmailNotification fakeEmailNotification = new FakeEmailNotification("22655f44218bb3", "efb11829ac8703",
-					"sandbox.smtp.mailtrap.io");
+			FakeEmailNotification fakeEmailNotification = new FakeEmailNotification();
 
 			DefaultRegistroDeVentas registroDeVentas = new DefaultRegistroDeVentas(fakeDataBaseWriter,
 					fakeDataBaseRepository, fakeDefaultDateTimeCheck, fakeEmailNotification);
@@ -394,15 +362,11 @@ class PruebasUnitarias {
 		}
 	}
 
-//	@Test
+	@Test
 	void leerVentasDelDia() {
 		try {
 
-			Propiedades properties = new DataBasePropiedades("jdbc:mysql://127.0.0.1/blackmarket_sa", "root", "");
-
-			FakeDataBaseWriter fakeDataBaseWriter = new FakeDataBaseWriter(properties,
-					"INSERT INTO registro_ventas (fecha, cantidad, monto_total_facturado)" + "VALUES (?, ?, ?);",
-					" | ");
+			FakeDataBaseWriter fakeDataBaseWriter = new FakeDataBaseWriter(" | ");
 
 			ArrayList<String> data = new ArrayList<>();
 
@@ -426,13 +390,11 @@ class PruebasUnitarias {
 			data.add(String.valueOf(LocalDateTime.now().plusDays(2)));
 			data.add(String.valueOf(16000));
 
-			FakeDataBaseRepository fakeDataBaseRepository = new FakeDataBaseRepository(properties, data);
+			FakeDataBaseRepository fakeDataBaseRepository = new FakeDataBaseRepository(data);
 
-			FakeDefaultDateTimeCheck fakeDefaultDateTimeCheck = new FakeDefaultDateTimeCheck(
-					LocalDateTime.of(2023, 07, 15, 9, 30, 0, 0));
+			FakeDefaultDateTimeCheck fakeDefaultDateTimeCheck = new FakeDefaultDateTimeCheck(LocalDateTime.now());
 
-			FakeEmailNotification fakeEmailNotification = new FakeEmailNotification("22655f44218bb3", "efb11829ac8703",
-					"sandbox.smtp.mailtrap.io");
+			FakeEmailNotification fakeEmailNotification = new FakeEmailNotification();
 
 			DefaultRegistroDeVentas registroDeVentas = new DefaultRegistroDeVentas(fakeDataBaseWriter,
 					fakeDataBaseRepository, fakeDefaultDateTimeCheck, fakeEmailNotification);
@@ -450,9 +412,7 @@ class PruebasUnitarias {
 	void errorCantidadRemerasInvalido() {
 		try {
 
-			FakeDiskDataWriter fakeDiskDataWriter = new FakeDiskDataWriter(
-					"C:\\Users\\ezehu\\git\\TrabajoFinal2023-OO2-ComercioDeRemeras-BlackMerketSA\\BlackMarketSA.txt",
-					" | ");
+			FakeDiskDataWriter fakeDiskDataWriter = new FakeDiskDataWriter(" | ");
 
 			ArrayList<String> data = new ArrayList<>();
 
@@ -476,15 +436,12 @@ class PruebasUnitarias {
 			data.add(String.valueOf(LocalDateTime.now().plusDays(2)));
 			data.add(String.valueOf(16000));
 
-			FakeDiskDataRepository fakeDiskDataRepository = new FakeDiskDataRepository(
-					"C:\\Users\\ezehu\\git\\TrabajoFinal2023-OO2-ComercioDeRemeras-BlackMerketSA\\BlackMarketSA.txt",
-					" | ", data);
+			FakeDiskDataRepository fakeDiskDataRepository = new FakeDiskDataRepository(data);
 
 			FakeDefaultDateTimeCheck fakeDefaultDateTimeCheck = new FakeDefaultDateTimeCheck(
-					LocalDateTime.of(2023, 07, 22, 16, 30, 0, 0));
+					LocalDateTime.of(2023, 07, 20, 16, 30, 0, 0));
 
-			FakeEmailNotification fakeEmailNotification = new FakeEmailNotification("22655f44218bb3", "efb11829ac8703",
-					"sandbox.smtp.mailtrap.io");
+			FakeEmailNotification fakeEmailNotification = new FakeEmailNotification();
 
 			DefaultRegistroDeVentas registroDeVentas = new DefaultRegistroDeVentas(fakeDiskDataWriter,
 					fakeDiskDataRepository, fakeDefaultDateTimeCheck, fakeEmailNotification);
@@ -507,9 +464,7 @@ class PruebasUnitarias {
 	void errorStringCantidadRemerasInvalido() {
 		try {
 
-			FakeDiskDataWriter fakeDiskDataWriter = new FakeDiskDataWriter(
-					"C:\\Users\\ezehu\\git\\TrabajoFinal2023-OO2-ComercioDeRemeras-BlackMerketSA\\BlackMarketSA.txt",
-					" | ");
+			FakeDiskDataWriter fakeDiskDataWriter = new FakeDiskDataWriter(" | ");
 
 			ArrayList<String> data = new ArrayList<>();
 
@@ -533,15 +488,12 @@ class PruebasUnitarias {
 			data.add(String.valueOf(LocalDateTime.now().plusDays(2)));
 			data.add(String.valueOf(16000));
 
-			FakeDiskDataRepository fakeDiskDataRepository = new FakeDiskDataRepository(
-					"C:\\Users\\ezehu\\git\\TrabajoFinal2023-OO2-ComercioDeRemeras-BlackMerketSA\\BlackMarketSA.txt",
-					" | ", data);
+			FakeDiskDataRepository fakeDiskDataRepository = new FakeDiskDataRepository(data);
 
 			FakeDefaultDateTimeCheck fakeDefaultDateTimeCheck = new FakeDefaultDateTimeCheck(
-					LocalDateTime.of(2023, 07, 22, 16, 30, 0, 0));
+					LocalDateTime.of(2023, 07, 20, 16, 30, 0, 0));
 
-			FakeEmailNotification fakeEmailNotification = new FakeEmailNotification("22655f44218bb3", "efb11829ac8703",
-					"sandbox.smtp.mailtrap.io");
+			FakeEmailNotification fakeEmailNotification = new FakeEmailNotification();
 
 			DefaultRegistroDeVentas registroDeVentas = new DefaultRegistroDeVentas(fakeDiskDataWriter,
 					fakeDiskDataRepository, fakeDefaultDateTimeCheck, fakeEmailNotification);
@@ -564,11 +516,7 @@ class PruebasUnitarias {
 	void errorEmailInvalido() {
 		try {
 
-			Propiedades properties = new DataBasePropiedades("jdbc:mysql://127.0.0.1/blackmarket_sa", "root", "");
-
-			FakeDataBaseWriter fakeDataBaseWriter = new FakeDataBaseWriter(properties,
-					"INSERT INTO registro_ventas (fecha, cantidad, monto_total_facturado)" + "VALUES (?, ?, ?);",
-					" | ");
+			FakeDataBaseWriter fakeDataBaseWriter = new FakeDataBaseWriter(" | ");
 
 			ArrayList<String> data = new ArrayList<>();
 
@@ -592,13 +540,12 @@ class PruebasUnitarias {
 			data.add(String.valueOf(LocalDateTime.now().plusDays(2)));
 			data.add(String.valueOf(16000));
 
-			FakeDataBaseRepository fakeDataBaseRepository = new FakeDataBaseRepository(properties, data);
+			FakeDataBaseRepository fakeDataBaseRepository = new FakeDataBaseRepository(data);
 
 			FakeDefaultDateTimeCheck fakeDefaultDateTimeCheck = new FakeDefaultDateTimeCheck(
-					LocalDateTime.of(2023, 07, 21, 16, 30, 0, 0));
+					LocalDateTime.of(2023, 07, 20, 9, 30, 0, 0));
 
-			FakeEmailNotification fakeEmailNotification = new FakeEmailNotification("22655f44218bb3", "efb11829ac8703",
-					"sandbox.smtp.mailtrap.io");
+			FakeEmailNotification fakeEmailNotification = new FakeEmailNotification();
 
 			DefaultRegistroDeVentas registroDeVentas = new DefaultRegistroDeVentas(fakeDataBaseWriter,
 					fakeDataBaseRepository, fakeDefaultDateTimeCheck, fakeEmailNotification);

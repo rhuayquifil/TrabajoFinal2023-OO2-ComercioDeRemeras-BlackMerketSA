@@ -29,9 +29,9 @@ public class DiskDataWriter implements DataWriter {
 
 		if (!file.exists()) {
 			createFileAndWriteDisk(file, datos);
+		} else {
+			writeDisk(file, datos);
 		}
-
-		writeDisk(file, datos);
 	}
 
 	private void readKeys(HashMap<String, String> datos) {
@@ -55,8 +55,7 @@ public class DiskDataWriter implements DataWriter {
 		}
 	}
 
-	private void createFileAndWriteDisk(File file, HashMap<String, String> datos)
-			throws InfrastructureExceptions {
+	private void createFileAndWriteDisk(File file, HashMap<String, String> datos) throws InfrastructureExceptions {
 		try {
 			FileWriter writer = new FileWriter(file);
 
@@ -68,7 +67,6 @@ public class DiskDataWriter implements DataWriter {
 	}
 
 	private void write(FileWriter writer, HashMap<String, String> datos) throws IOException {
-
 		writer.write(datos.get(this.claves[0]) + separador + datos.get(this.claves[1]) + separador
 				+ datos.get(this.claves[2]) + '\n');
 		writer.close();

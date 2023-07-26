@@ -4,16 +4,10 @@ import ar.unrn.domain.portsout.Notification;
 
 public class FakeEmailNotification implements Notification {
 
-	private final String username;
-	private final String password;
-	private String hostAddress;
 	private String resultado;
 
-	public FakeEmailNotification(String username, String password, String hostAddress) {
+	public FakeEmailNotification() {
 		super();
-		this.username = username;
-		this.password = password;
-		this.hostAddress = hostAddress;
 		this.resultado = "";
 	}
 

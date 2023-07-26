@@ -7,13 +7,9 @@ import ar.unrn.domain.portsout.InfrastructureExceptions;
 
 public class FakeDiskDataRepository implements DataRepository {
 
-	private String urlArchivo;
 	private ArrayList<String> data;
-	private String separador;
 
-	public FakeDiskDataRepository(String urlArchivo, String separador, ArrayList<String> data) {
-		this.urlArchivo = urlArchivo;
-		this.separador = separador;
+	public FakeDiskDataRepository(ArrayList<String> data) {
 		this.data = data;
 	}
 

@@ -86,7 +86,7 @@ public class PantallaDeVenta extends JFrame {
 			}
 		});
 		rdbtnRemeraLisa.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		rdbtnRemeraLisa.setBounds(140, 100, 71, 23);
+		rdbtnRemeraLisa.setBounds(120, 100, 94, 25);
 		contentPane.add(rdbtnRemeraLisa);
 
 		rdbtnRemeraEstampada = new JRadioButton(listadoNombresDeLosTipoRemera[1]);
@@ -96,7 +96,7 @@ public class PantallaDeVenta extends JFrame {
 			}
 		});
 		rdbtnRemeraEstampada.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		rdbtnRemeraEstampada.setBounds(220, 100, 94, 23);
+		rdbtnRemeraEstampada.setBounds(230, 100, 94, 23);
 		contentPane.add(rdbtnRemeraEstampada);
 
 		JLabel lblEmailComprador = new JLabel("Email Comprador  *");

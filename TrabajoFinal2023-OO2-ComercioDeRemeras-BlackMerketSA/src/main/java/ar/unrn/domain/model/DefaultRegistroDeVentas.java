@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 import ar.unrn.domain.portsin.DomainExceptions;
@@ -21,7 +22,8 @@ import ar.unrn.domain.portsout.Notification;
 
 public class DefaultRegistroDeVentas implements RegistroDeVentas {
 
-	private ArrayList<Remera> listaDeTiposRemera;
+//	private ArrayList<Remera> listaDeTiposRemera;
+	private HashMap<String, Remera> listaDeTiposRemera;
 	private DataWriter dataWriter;
 	private DataRepository dataRepository;
 	private DateTimeCheck dateTimeCheck;
@@ -35,9 +37,12 @@ public class DefaultRegistroDeVentas implements RegistroDeVentas {
 		this.dateTimeCheck = dateTimeCheck;
 		this.notificacion = notificacion;
 
-		this.listaDeTiposRemera = new ArrayList<Remera>();
-		listaDeTiposRemera.add(new RemeraLisa(2000, dateTimeCheck));
-		listaDeTiposRemera.add(new RemeraEstampada(2500, dateTimeCheck));
+//		this.listaDeTiposRemera = new ArrayList<Remera>();
+//		listaDeTiposRemera.add(new RemeraLisa(2000, dateTimeCheck));
+//		listaDeTiposRemera.add(new RemeraEstampada(2500, dateTimeCheck));
+		this.listaDeTiposRemera = new HashMap<String, Remera>();
+		listaDeTiposRemera.put("Lisa", new RemeraLisa(2000, dateTimeCheck));
+		listaDeTiposRemera.put("Estampada", new RemeraEstampada(2500, dateTimeCheck));
 	}
 
 	// throw new RuntimeException(e);
@@ -104,22 +109,31 @@ public class DefaultRegistroDeVentas implements RegistroDeVentas {
 
 	@Override
 	public double consultarMontoTotalDeVenta(HashMap<String, String> datosVenta) throws DomainExceptions {
-		for (Remera remera : listaDeTiposRemera) {
-			if (remera.nombre().equals(datosVenta.get("TipoRemera"))) {
-				return remera.precioFinal(Integer.valueOf(datosVenta.get("CantidadRemeras")));
-			}
-		}
-		throw new DomainExceptions("error al procesar consulta");
+		// hash map
+		return listaDeTiposRemera.get(datosVenta.get("TipoRemera"))
+				.precioFinal(Integer.valueOf(datosVenta.get("CantidadRemeras")));
+//		for (Remera remera : listaDeTiposRemera) {
+//			if (remera.nombre().equals(datosVenta.get("TipoRemera"))) {
+//				return remera.precioFinal(Integer.valueOf(datosVenta.get("CantidadRemeras")));
+//			}
+//		}
+//		throw new DomainExceptions("error al procesar consulta");
 	}
 
 	@Override
 	public String[] listadoNombresDeLosTipoRemera() {
 		String[] listadoNombresDeRemeras = new String[listaDeTiposRemera.size()];
+
 		int i = 0;
-		for (Remera remera : listaDeTiposRemera) {
-			listadoNombresDeRemeras[i] = remera.nombre();
+		for (Map.Entry<String, Remera> entry : listaDeTiposRemera.entrySet()) {
+			listadoNombresDeRemeras[i] = entry.getValue().nombre();
 			i++;
 		}
+//		
+//		for (Remera remera : listaDeTiposRemera) {
+//			listadoNombresDeRemeras[i] = remera.nombre();
+//			i++;
+//		}
 		return listadoNombresDeRemeras;
 	}
 

@@ -30,5 +30,4 @@ public class DataBaseMain {
 			JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
 		}
 	}
-
 }

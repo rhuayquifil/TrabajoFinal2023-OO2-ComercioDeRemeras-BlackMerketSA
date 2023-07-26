@@ -8,13 +8,11 @@ import ar.unrn.domain.portsout.InfrastructureExceptions;
 
 public class FakeDiskDataWriter implements DataWriter {
 
-	private String url;
 	private String separador;
 	private String[] claves;
 	private String resultado;
 
-	public FakeDiskDataWriter(String url, String separador) {
-		this.url = url;
+	public FakeDiskDataWriter(String separador) {
 		this.separador = separador;
 		this.resultado = "";
 	}

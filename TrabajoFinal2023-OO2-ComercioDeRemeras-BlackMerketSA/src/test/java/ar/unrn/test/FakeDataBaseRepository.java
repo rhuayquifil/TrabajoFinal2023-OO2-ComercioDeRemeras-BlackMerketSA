@@ -4,15 +4,12 @@ import java.util.ArrayList;
 
 import ar.unrn.domain.portsout.DataRepository;
 import ar.unrn.domain.portsout.InfrastructureExceptions;
-import ar.unrn.domain.portsout.Propiedades;
 
 public class FakeDataBaseRepository implements DataRepository {
 
-	private Propiedades properties;
 	private ArrayList<String> data;
 
-	public FakeDataBaseRepository(Propiedades properties, ArrayList<String> data) {
-		this.properties = properties;
+	public FakeDataBaseRepository(ArrayList<String> data) {
 		this.data = data;
 	}
 
